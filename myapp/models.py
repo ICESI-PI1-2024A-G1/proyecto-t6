@@ -1,16 +1,9 @@
 from django.db import models
 
 # Create your models here.
-class Project(models.Model):
-    name= models.CharField(max_length = 200)
-    
-    def __str__(self):
-        return self.name
 
-class Tast(models.Model):
-    tittle = models.CharField(max_length = 200)
-    description = models.TextField()
-    project = models.ForeignKey(Project, on_delete = models.CASCADE)
-
+class academy_Users_Credentials(models.Model):
+    userName = models.CharField(max_length=200)
+    password = models.CharField(max_length=200)
     def __str__(self):
-        return self.tittle
+        return self.userName

@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Project, Tast
+from .models import academy_Users_Credentials
 
 # Register your models here.
-admin.site.register(Project)
-admin.site.register(Tast)
+admin.site.register(academy_Users_Credentials)

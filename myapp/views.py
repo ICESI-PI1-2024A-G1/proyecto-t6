@@ -1,45 +1,33 @@
-from django.shortcuts import render
-from .models import Project, Tast
-from django.http import HttpResponse, JsonResponse
-from django.shortcuts import get_object_or_404, render
-from .forms import CreateNewTask
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import AuthenticationForm
+from .models import academy_Users_Credentials
 
-# Create your views here.
-
+#<} Create your views here.
 
 def index(request):
     return render(request, 'index.html')
 
-
-def hello(request, username):
-    print(username)
-    return HttpResponse("<h1>Hello %s</h1>" % username)
-
-
-def about(request):
-    return HttpResponse("About")
-
-
-def projects(request):
-    # projects = list(Project.objects.all().values())
-    projects = Project.objects.all()
-
-    return render(request, 'projects.html', {
-        'projects': projects
-    })
-
-
-def tasks(request, id):
-    task = get_object_or_404(Tast, id=id)
-    return HttpResponse('task: %s' % task.tittle)
-
-
-def create_task(request):
+def academicUsersLogin(request):
     if request.method == 'GET':
-        return render(request,  'create_task.html', {
-            'form': CreateNewTask()
+        return render(request, 'loginAcademyComunity.html',{
+        'form' : AuthenticationForm
         })
     else:
-        Tast.objects.create(
-            tittle=request.GET['tittle'], description=request.GET['description'], project_id=1)
-        return
+        user = authenticate(
+            request, username = request.POST['username'], password = request.POST['password']
+        )
+        if user is None:
+            return render(request, 'loginAcademyComunity.html', {
+            'form' : AuthenticationForm,
+            'error' : 'Username or password incorrect!'
+            })
+        else:
+            login(request, user)
+            return redirect('index')
+    
+    
+def signout(request):    
+    logout(request)
+    return redirect('academicUsersLogin')
+
