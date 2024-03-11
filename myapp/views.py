@@ -1,10 +1,8 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import EventRequestForm
 from django.contrib import messages
-from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 
 
@@ -25,7 +23,7 @@ def academicMembersLogin(request):
         if user is None:
             return render(request, 'loginAcademicCommunity.html', {
             'form' : AuthenticationForm,
-            'error' : 'Username or password is incorrect!'
+            'error' : 'Nombre de usuario o constraseña incorrecta!'
             })
         else:
             login(request, user)
@@ -43,7 +41,7 @@ def ccsaLogin(request):
         if user is None:
             return render(request, 'CCSAlogin.html', {
             'form' : AuthenticationForm,
-            'error' : 'Username or password incorrect!'
+            'error' : 'Nombre de usuario o constraseña incorrecta!'
             })
         else:
             login(request, user)
@@ -55,7 +53,7 @@ def signout(request):
     return redirect('academicUsersLogin')
 
 @login_required
-def create_event_request(request):
+def createEventRequest(request):
     if request.method == 'POST':
         form = EventRequestForm(request.POST)
         if form.is_valid():
@@ -66,4 +64,4 @@ def create_event_request(request):
             return redirect('create_event_request')  # Redirige a la misma página para mostrar el formulario limpio
     else:
         form = EventRequestForm()
-    return render(request, 'create_event_request.html', {'form': form})
+    return render(request, 'createEventRequest.html', {'form': form})
