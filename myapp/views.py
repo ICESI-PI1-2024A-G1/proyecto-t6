@@ -8,49 +8,55 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+def home(request):
+    return render(request, 'home.html')
+
 def index(request):
     return render(request, 'index.html')
 
+
 def academicMembersLogin(request):
     if request.method == 'GET':
-        return render(request, 'loginAcademicCommunity.html',{
-        'form' : AuthenticationForm
+        return render(request, 'loginAcademicCommunity.html', {
+            'form': AuthenticationForm
         })
     else:
         user = authenticate(
-            request, username = request.POST['username'], password = request.POST['password']
+            request, username=request.POST['username'], password=request.POST['password']
         )
         if user is None:
             return render(request, 'loginAcademicCommunity.html', {
-            'form' : AuthenticationForm,
-            'error' : 'Nombre de usuario o constraseña incorrecta!'
-            })
-        else:
-            login(request, user)
-            return redirect('index')
-        
-def ccsaLogin(request):
-    if request.method == 'GET':
-        return render(request, 'CCSAlogin.html',{
-        'form' : AuthenticationForm
-        })
-    else:
-        user = authenticate(
-            request, username = request.POST['username'], password = request.POST['password']
-        )
-        if user is None:
-            return render(request, 'CCSAlogin.html', {
-            'form' : AuthenticationForm,
-            'error' : 'Nombre de usuario o constraseña incorrecta!'
+                'form': AuthenticationForm,
+                'error': 'Nombre de usuario o constraseña incorrecta!'
             })
         else:
             login(request, user)
             return redirect('index')
 
-    
-def signout(request):    
+
+def ccsaLogin(request):
+    if request.method == 'GET':
+        return render(request, 'CCSAlogin.html', {
+            'form': AuthenticationForm
+        })
+    else:
+        user = authenticate(
+            request, username=request.POST['username'], password=request.POST['password']
+        )
+        if user is None:
+            return render(request, 'CCSAlogin.html', {
+                'form': AuthenticationForm,
+                'error': 'Nombre de usuario o constraseña incorrecta!'
+            })
+        else:
+            login(request, user)
+            return redirect('index')
+
+
+def signout(request):
     logout(request)
     return redirect('academicUsersLogin')
+
 
 @login_required
 def createEventRequest(request):
@@ -60,8 +66,10 @@ def createEventRequest(request):
             solicitud = form.save(commit=False)
             solicitud.usuario = request.user  # Asigna el usuario a la solicitud
             solicitud.save()
-            messages.success(request, 'La solicitud de evento se ha creado correctamente.')
-            return redirect('create_event_request')  # Redirige a la misma página para mostrar el formulario limpio
+            messages.success(
+                request, 'La solicitud de evento se ha creado correctamente.')
+            # Redirige a la misma página para mostrar el formulario limpio
+            return redirect('create_event_request')
     else:
         form = EventRequestForm()
     return render(request, 'createEventRequest.html', {'form': form})
