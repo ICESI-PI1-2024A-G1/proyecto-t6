@@ -2,11 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
-from .models import academic_members_information
-# Create your views here.
 
-def hello(request):
-    return HttpResponse("<h1>Hello World<h1>")
+# Create your views here.
 
 def index(request):
     return render(request, 'index.html')
@@ -32,4 +29,4 @@ def academicMembersLogin(request):
     
 def signout(request):    
     logout(request)
-    return redirect('academicMembersLoginyyy')
+    return redirect('academicMembersLogin')
