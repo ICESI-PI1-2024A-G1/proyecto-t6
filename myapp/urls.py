@@ -10,4 +10,6 @@ urlpatterns = [
     path('logout/', views.signout, name='logout'),
     path('create-event-request/', views.createEventRequest,
          name='create-event-request'),
+    path('event-record/', views.eventRecord,
+         name='event-record'),
 ]

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Registros</title>
+</head>
+
+<body>
+    {% extends 'layouts/base.html' %}
+    {% block content %}
+    <h1>Historial de Registros</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Lugar</th>
+                <th>Fecha de inicio</th>
+                <th>Fecha de fin</th>
+                <th>Presupuesto</th>
+                <th>Alimentación</th>
+                <th>Transporte</th>
+                <th>Profesor</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for evento in eventos %}
+            <tr>
+                <td>{{ evento.usuario }}</td>
+                <td>{{ evento.lugar }}</td>
+                <td>{{ evento.fecha_inicio }}</td>
+                <td>{{ evento.fecha_fin }}</td>
+                <td>{{ evento.presupuesto }}</td>
+                <td>{{ evento.alimentacion }}</td>
+                <td>{{ evento.transporte }}</td>
+                <td>{{ evento.profesor }}</td>
+                <td>{{ evento.estado_solicitud }}</td>
+            </tr>
+            <tr>
+                <td colspan="8">
+                    <strong>Usuario que realizó la solicitud:</strong><br>
+                    Usuario: {{ evento.usuario.username }}<br>    
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endblock %}
+</body>
+
+</html>

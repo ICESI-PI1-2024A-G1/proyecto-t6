@@ -11,6 +11,8 @@ class EventRequest(models.Model):
     presupuesto = models.DecimalField(max_digits=10, decimal_places=2)
     alimentacion = models.CharField(max_length=200)
     transporte = models.CharField(max_length=200)
+    profesor = models.CharField(max_length=200)
+    estado_solicitud = models.CharField(null=True, max_length=200)
 
     def __str__(self):
-        return f'Usuario: {self.usuario}, Lugar: {self.lugar}, Fecha de inicio: {self.fecha_inicio}, Fecha de fin: {self.fecha_fin}, Presupuesto: {self.presupuesto}, Alimentación: {self.alimentacion}, Transporte: {self.transporte}'
+        return f'Usuario: {self.usuario}, Lugar: {self.lugar}, Fecha de inicio: {self.fecha_inicio}, Fecha de fin: {self.fecha_fin}, Presupuesto: {self.presupuesto}, Alimentación: {self.alimentacion}, Transporte: {self.transporte}, Profesor: {self.profesor}, Estado: {self.estado_solicitud}'

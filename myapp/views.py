@@ -4,6 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from .forms import EventRequestForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from .models import EventRequest
 
 
 # Create your views here.
@@ -69,7 +70,11 @@ def createEventRequest(request):
             messages.success(
                 request, 'La solicitud de evento se ha creado correctamente.')
             # Redirige a la misma página para mostrar el formulario limpio
-            return redirect('create_event_request')
+            return redirect('create-event-request')
     else:
         form = EventRequestForm()
     return render(request, 'createEventRequest.html', {'form': form})
+
+def eventRecord(request):
+    eventos = EventRequest.objects.all()
+    return render(request, 'event_record.html', {'eventos': eventos})
