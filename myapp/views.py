@@ -67,6 +67,9 @@ def createEventRequest(request):
             solicitud = form.save(commit=False)
             solicitud.usuario = request.user  # Asigna el usuario a la solicitud
             solicitud.save()
+
+            #Mostrar notificacion de eventos creados con detalles
+
             message = f'Se ha creado una solicitud de evento: {solicitud}'
             messages.success(request, message)
             return redirect('create-event-request')
@@ -78,6 +81,10 @@ def eventRecord(request):
     eventos = EventRequest.objects.all()
     return render(request, 'event_record.html', {'eventos': eventos})
 
+
+#Ver solicitudes de eventos, cambiar estado de eventos
+#Mostrar notificacion de eventos creados con detalles
+@login_required
 def lista_eventos(request):
     eventos = EventRequest.objects.all()
     if request.method == 'POST':
