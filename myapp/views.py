@@ -68,7 +68,7 @@ def createEventRequest(request):
             solicitud.usuario = request.user  # Asigna el usuario a la solicitud
             solicitud.save()
             messages.success(
-                request, 'La solicitud de evento se ha creado correctamente.')
+                request, 'Se ha creado una solicitud de evento.')
             # Redirige a la misma página para mostrar el formulario limpio
             return redirect('create-event-request')
     else:
@@ -94,4 +94,4 @@ def lista_eventos(request):
             return redirect('lista_eventos')
     else:
         form = EstadoSolicitudForm()
-    return render(request, 'lista_eventos.html', {'eventos': eventos, 'form': form})
+    return render(request, 'lista_eventos.html', {'eventos': eventos, 'form': form, 'messages': messages.get_messages(request)})
