@@ -6,7 +6,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import EventRequest
 from .forms import EstadoSolicitudForm
-
+from django.contrib.auth.models import User
+from django.db import models
 # Create your views here.
 
 def home(request):
@@ -56,7 +57,7 @@ def ccsaLogin(request):
 
 def signout(request):
     logout(request)
-    return redirect('academicUsersLogin')
+    return redirect('home')
 
 
 @login_required
@@ -78,8 +79,10 @@ def createEventRequest(request):
     return render(request, 'createEventRequest.html', {'form': form})
 
 def eventRecord(request):
-    eventos = EventRequest.objects.all()
-    return render(request, 'event_record.html', {'eventos': eventos})
+    user = request.user.id
+    events = EventRequest.objects.filter(usuario_id = user)
+    print(events)
+    return render(request, 'event_record.html', {'eventos': events})
 
 
 #Ver solicitudes de eventos, cambiar estado de eventos
