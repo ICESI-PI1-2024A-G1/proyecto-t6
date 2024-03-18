@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Eventos</title>
+</head>
+<body>
+<h1>Lista de Eventos</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Usuario</th>
+        <th>Lugar</th>
+        <th>Fecha de Inicio</th>
+        <th>Fecha de Fin</th>
+        <th>Presupuesto</th>
+        <th>Alimentación</th>
+        <th>Transporte</th>
+        <th>Profesor</th>
+        <th>Estado de Solicitud</th>
+        <th>Actualizar Estado</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for evento in eventos %}
+    <tr>
+        <td>{{ evento.id }}</td>
+        <td>{{ evento.usuario }}</td>
+        <td>{{ evento.lugar }}</td>
+        <td>{{ evento.fecha_inicio }}</td>
+        <td>{{ evento.fecha_fin }}</td>
+        <td>{{ evento.presupuesto }}</td>
+        <td>{{ evento.alimentacion }}</td>
+        <td>{{ evento.transporte }}</td>
+        <td>{{ evento.profesor }}</td>
+        <td>{{ evento.estado_solicitud }}</td>
+        <td>
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="evento_id" value="{{ evento.id }}">
+                <select name="estado_solicitud">
+                    <option value="pendiente">Pendiente</option>
+                    <option value="aprobada">Aprobada</option>
+                    <option value="rechazada">Rechazada</option>
+                </select>
+                <button type="submit">Actualizar</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>

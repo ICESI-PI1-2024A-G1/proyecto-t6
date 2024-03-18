@@ -12,4 +12,5 @@ urlpatterns = [
          name='create-event-request'),
     path('event-record/', views.eventRecord,
          name='event-record'),
+    path('eventos/', views.lista_eventos, name='lista_eventos'),
 ]

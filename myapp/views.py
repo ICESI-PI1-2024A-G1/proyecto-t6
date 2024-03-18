@@ -5,7 +5,7 @@ from .forms import EventRequestForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import EventRequest
-
+from .forms import EstadoSolicitudForm
 
 # Create your views here.
 
@@ -78,3 +78,20 @@ def createEventRequest(request):
 def eventRecord(request):
     eventos = EventRequest.objects.all()
     return render(request, 'event_record.html', {'eventos': eventos})
+
+def lista_eventos(request):
+    eventos = EventRequest.objects.all()
+    if request.method == 'POST':
+        form = EstadoSolicitudForm(request.POST)
+        print(request.POST)
+        if form.is_valid():
+            evento_id = form.cleaned_data['evento_id']
+            estado_solicitud = form.cleaned_data['estado_solicitud']
+
+            evento = EventRequest.objects.get(id=evento_id)
+            evento.estado_solicitud = estado_solicitud
+            evento.save()
+            return redirect('lista_eventos')
+    else:
+        form = EstadoSolicitudForm()
+    return render(request, 'lista_eventos.html', {'eventos': eventos, 'form': form})
