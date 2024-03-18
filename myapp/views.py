@@ -84,6 +84,11 @@ def eventRecord(request):
 
 #Ver solicitudes de eventos, cambiar estado de eventos
 #Mostrar notificacion de eventos creados con detalles
+
+#Como no hay un campo que diferencie al usuario de CCSlogin y el AcademyUser
+# en los modelos que tienen para almacenar esos usuarios, cualquiera de
+# los dos que este logueado puede acceder a la seccion de aprobar/rechazar eventos.
+# Cuando se arregle el problema se realizará la respectiva actualizacion
 @login_required
 def lista_eventos(request):
     eventos = EventRequest.objects.all()
