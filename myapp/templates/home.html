@@ -1,13 +1,52 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'lib/bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
+  <script src="{% static 'lib/bootstrap-5.3.3-dist/js/jquery.min.js' %}"></script>
+  <script src="{% static 'lib/bootstrap-5.3.3-dist/js/bootstrap.min.js'%}"></script>
 </head>
 <body>
-    <h1>Home</h1>
-    <button name="button" type="submit" onclick="location.href='ccsa-login';">Soy miembro de CCSA! </button>
-    <button name="button" type="submit" onclick="location.href='academic-members-login';">Soy miembro de la comunidad academica!</button>
+
+<div class="jumbotron text-center">
+  <h1>My First Bootstrap Page</h1>
+  <p>Resize this responsive page to see the effect!</p> 
+</div>
+  
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <h3>Column 1</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+    </div>
+    <div class="col-sm-4">
+      <h3>Column 2</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+    </div>
+    <div class="col-sm-4">
+      <h3>Column 3</h3>        
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+    </div>
+    <div>
+        <h1>Home</h1>
+        <button name="button" type="submit" onclick="location.href='ccsa-login';">Soy miembro de CCSA! </button>
+        <button name="button" type="submit" onclick="location.href='academic-members-login';">Soy miembro de la comunidad academica!</button>
+    </div>
+  </div>
+</div>
+<button type="button" class="btn">Basic</button>
+<button type="button" class="btn btn-default">Default</button>
+<button type="button" class="btn btn-primary">Primary</button>
+<button type="button" class="btn btn-success">Success</button>
+<button type="button" class="btn btn-info">Info</button>
+<button type="button" class="btn btn-warning">Warning</button>
+<button type="button" class="btn btn-danger">Danger</button>
+<button type="button" class="btn btn-link">Link</button>
 </body>
 </html>
