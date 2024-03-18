@@ -11,7 +11,7 @@ class EventRequest(models.Model):
     presupuesto = models.DecimalField(max_digits=10, decimal_places=2)
     alimentacion = models.CharField(max_length=200)
     transporte = models.CharField(max_length=200)
-    profesor = models.CharField(max_length=200)
+    profesor = models.CharField(null=True, max_length=200)
     estado_solicitud = models.CharField(null=True, max_length=200, default='Pendiente')
 
     def __str__(self):

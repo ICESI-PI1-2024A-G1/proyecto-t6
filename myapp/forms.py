@@ -11,19 +11,19 @@ class EventRequestForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        fecha_inicio = cleaned_data.get('fecha_inicio')
-        fecha_fin = cleaned_data.get('fecha_fin')
-        presupuesto = cleaned_data.get('presupuesto')
+        request_start_date = cleaned_data.get('request_start_date')
+        request_end_date = cleaned_data.get('request_end_date')
+        request_budget = cleaned_data.get('request_budget')
 
         # Validación de campos vacíos
-        for field in ['lugar', 'fecha_inicio', 'fecha_fin', 'presupuesto', 'alimentacion', 'transporte', 'profesor']:
+        for field in ['request_place', 'request_start_date', 'request_end_date', 'request_budget', 'request_supply', 'request_transport', 'request_professor']:
             if not cleaned_data.get(field):
                 self.add_error(field, "Este campo es requerido.")
 
         # Validación de fechas
-            if fecha_inicio and fecha_fin:
-                if fecha_inicio >= fecha_fin:
-                    self.add_error('fecha_inicio', "La fecha de inicio debe ser anterior a la fecha de fin.")
+            if request_start_date and request_end_date:
+                if request_start_date >= request_end_date:
+                    self.add_error('request_start_date', "La fecha de inicio debe ser anterior a la fecha de fin.")
 
             return cleaned_data
 
