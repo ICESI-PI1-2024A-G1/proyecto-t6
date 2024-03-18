@@ -21,11 +21,11 @@ class EventRequestForm(forms.ModelForm):
                 self.add_error(field, "Este campo es requerido.")
 
         # Validación de fechas
-        if fecha_inicio and fecha_fin:
-            if fecha_inicio >= fecha_fin:
-                self.add_error('fecha_inicio', "La fecha de inicio debe ser anterior a la fecha de fin.")
+            if fecha_inicio and fecha_fin:
+                if fecha_inicio >= fecha_fin:
+                    self.add_error('fecha_inicio', "La fecha de inicio debe ser anterior a la fecha de fin.")
 
-        return cleaned_data
+            return cleaned_data
 
 class EstadoSolicitudForm(forms.Form):
     evento_id = forms.IntegerField(widget=forms.HiddenInput)
