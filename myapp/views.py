@@ -67,9 +67,8 @@ def createEventRequest(request):
             solicitud = form.save(commit=False)
             solicitud.usuario = request.user  # Asigna el usuario a la solicitud
             solicitud.save()
-            messages.success(
-                request, 'Se ha creado una solicitud de evento.')
-            # Redirige a la misma página para mostrar el formulario limpio
+            message = f'Se ha creado una solicitud de evento: {solicitud}'
+            messages.success(request, message)
             return redirect('create-event-request')
     else:
         form = EventRequestForm()
