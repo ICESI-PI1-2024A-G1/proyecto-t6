@@ -16,3 +16,5 @@
 #### Commit Style Usado: SemVer
 
 *Convención en el formato de los mensajes de los commits para la legibilidad del histórico del repositorio y la automatizacion.*
+
+https://dev.to/achamorro_dev/conventional-commits-que-es-y-por-que-deberias-empezar-a-utilizarlo-23an
