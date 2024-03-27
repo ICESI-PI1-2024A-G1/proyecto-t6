@@ -3,64 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>Lista de Eventos</title>
 </head>
 <body>
-<h1>Lista de Eventos</h1>
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Usuario</th>
-        <th>Lugar</th>
-        <th>Fecha de Inicio</th>
-        <th>Fecha de Fin</th>
-        <th>Presupuesto</th>
-        <th>Alimentación</th>
-        <th>Transporte</th>
-        <th>Profesor</th>
-        <th>Estado de Solicitud</th>
-        <th>Actualizar Estado</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for evento in eventos %}
-    <tr>
-        <td>{{ evento.id }}</td>
-        <td>{{ evento.usuario }}</td>
-        <td>{{ evento.lugar }}</td>
-        <td>{{ evento.fecha_inicio }}</td>
-        <td>{{ evento.fecha_fin }}</td>
-        <td>{{ evento.presupuesto }}</td>
-        <td>{{ evento.alimentacion }}</td>
-        <td>{{ evento.transporte }}</td>
-        <td>{{ evento.profesor }}</td>
-        <td>{{ evento.estado_solicitud }}</td>
-        <td>
-            <form method="post">
-                {% csrf_token %}
-                <input type="hidden" name="evento_id" value="{{ evento.id }}">
-                <select name="estado_solicitud">
-                    <option value="pendiente">Pendiente</option>
-                    <option value="aprobada">Aprobada</option>
-                    <option value="rechazada">Rechazada</option>
-                </select>
-                <button type="submit">Actualizar</button>
-            </form>
-        </td>
-    </tr>
-    {% endfor %}
-
-    <!--Mostrar notificacion cuando se crea un registro o se modifica-->
+<div class="container mt-5">
+    <!-- Mostrar notificaciones cuando se crea un evento -->
     {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
     {% endif %}
+</div>
 
-    </tbody>
-</table>
+<div class="container mt-5" style="background-color: #f5f5f5; border-radius: 10px; padding: 20px;">
+    <h1 class="text-center">Lista de Eventos</h1>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Usuario</th>
+                <th>Lugar</th>
+                <th>Fecha de Inicio</th>
+                <th>Fecha de Fin</th>
+                <th>Presupuesto</th>
+                <th>Alimentación</th>
+                <th>Transporte</th>
+                <th>Profesor</th>
+                <th>Estado de Solicitud</th>
+                <th>Actualizar Estado</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for evento in eventos %}
+            <tr>
+                <td>{{ evento.id }}</td>
+                <td>{{ evento.usuario }}</td>
+                <td>{{ evento.lugar }}</td>
+                <td>{{ evento.fecha_inicio }}</td>
+                <td>{{ evento.fecha_fin }}</td>
+                <td>{{ evento.presupuesto }}</td>
+                <td>{{ evento.alimentacion }}</td>
+                <td>{{ evento.transporte }}</td>
+                <td>{{ evento.profesor }}</td>
+                <td>{{ evento.estado_solicitud }}</td>
+                <td>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="evento_id" value="{{ evento.id }}">
+                        <select name="estado_solicitud" class="form-control">
+                            <option value="pendiente">Pendiente</option>
+                            <option value="aprobada">Aprobada</option>
+                            <option value="rechazada">Rechazada</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary mt-2">Actualizar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
 </body>
 </html>
