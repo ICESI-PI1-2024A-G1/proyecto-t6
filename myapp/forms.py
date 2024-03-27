@@ -1,8 +1,9 @@
 from django import forms
 from .models import EventRequest
-
 from django import forms
 from .models import EventRequest
+from django.core.exceptions import ValidationError
+import datetime
 
 class EventRequestForm(forms.ModelForm):
     class Meta:
@@ -11,21 +12,20 @@ class EventRequestForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        request_start_date = cleaned_data.get('request_start_date')
-        request_end_date = cleaned_data.get('request_end_date')
-        request_budget = cleaned_data.get('request_budget')
+        lugar = cleaned_data.get('lugar')
+        fecha_inicio = cleaned_data.get('fecha_inicio')
+        fecha_fin = cleaned_data.get('fecha_fin')
+        presupuesto = cleaned_data.get('presupuesto')
 
-        # Validación de campos vacíos
-        for field in ['request_place', 'request_start_date', 'request_end_date', 'request_budget', 'request_supply', 'request_transport', 'request_professor']:
-            if not cleaned_data.get(field):
-                self.add_error(field, "Este campo es requerido.")
+        if not lugar or not fecha_inicio or not fecha_fin or not presupuesto:
+            raise forms.ValidationError('Ninguno de los campos puede estar vacío.')
 
-        # Validación de fechas
-            if request_start_date and request_end_date:
-                if request_start_date >= request_end_date:
-                    self.add_error('request_start_date', "La fecha de inicio debe ser anterior a la fecha de fin.")
+        if fecha_inicio and fecha_fin:
+            if fecha_inicio > fecha_fin:
+                raise forms.ValidationError('La fecha de inicio no puede ser posterior a la fecha de fin.')
 
-            return cleaned_data
+        if presupuesto and presupuesto < 0:
+            raise forms.ValidationError('El presupuesto no puede ser negativo.')
 
 class EstadoSolicitudForm(forms.Form):
     evento_id = forms.IntegerField(widget=forms.HiddenInput)
