@@ -1,11 +1,113 @@
+{% load static %}
+{% include 'layouts/header.html' %}
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>Lista de Eventos</title>
+    <link rel="stylesheet" href="{% static 'lib/bootstrap-5.3.3-dist/css/bootstrap.css' %}">
+    <style>
+        body {
+            background: #8d66a1;
+            background: linear-gradient(to right, #d5d8de, #bf5c91);
+            font-family: 'Roboto', sans-serif;
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 36px;
+            text-align: center;
+            color: #0e1113;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            border: 1.5px solid #141117;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1.5px solid #141117;
+            border-right: 1.5px solid black;
+            font-size: 14px;
+
+        }
+
+        th {
+            background-color: #66327d;
+            color: #080000;
+        }
+
+        tr:nth-child(even) {
+            background-color: #a676ae;
+        }
+
+        tr:hover {
+            background-color: #fdf5fe;
+        }
+
+        th:last-child,
+        td:last-child {
+            border-right: none;
+        }
+
+        form {
+            display: flex;
+            align-items: center;
+        }
+
+        select {
+            margin-right: 10px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 8px 15px;
+            background-color: #3f0762;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #6500b3;
+        }
+
+        ul.messages {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+
+        ul.messages li {
+            padding: 5px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+
+        .success {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .error {
+            background-color: #dc3545;
+            color: white;
+        }
+    </style>
 </head>
+
 <body>
 <div class="container mt-5">
     <!-- Mostrar notificaciones cuando se crea un evento -->
@@ -74,4 +176,5 @@
 </div>
 
 </body>
+
 </html>
