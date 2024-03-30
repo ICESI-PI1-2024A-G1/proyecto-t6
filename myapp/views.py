@@ -30,8 +30,15 @@ def academicMembersLogin(request):
                 'error': 'Nombre de usuario o contraseña incorrecta!'
             })
         else:
-            login(request, user)
-            return redirect('index')
+            group = user.groups.values_list('name', flat=True).first()
+            if (group==3 or group==4):
+                login(request, user)
+                return redirect('index')
+            
+            return render(request, 'loginAcademicCommunity.html', {
+                'form': AuthenticationForm,
+                'error': 'Las credenciales no son de un mienbro la comunidad!'
+            })
 
 
 def ccsaLogin(request):
@@ -49,8 +56,16 @@ def ccsaLogin(request):
                 'error': 'Nombre de usuario o contraseña incorrecta!'
             })
         else:
-            login(request, user)
-            return redirect('index')
+            group = user.groups.values_list('id', flat=True).first()
+            print(group)
+            if (group==1 or group==2):
+                login(request, user)
+                return redirect('index')
+            
+            return render(request, 'CCSAlogin.html', {
+                'form': AuthenticationForm,
+                'error': 'Las credenciales no son de un miembro de la CCSA!'
+            })
 
 
 def signout(request):
