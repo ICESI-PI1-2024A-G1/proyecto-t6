@@ -1,70 +1,20 @@
 {% load static %}
-{% include 'layouts/header.html' %}
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'lib/bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
 
     <title>Historial de Registros</title>
     <link rel="stylesheet" href="{% static 'lib/bootstrap-5.3.3-dist/css/bootstrap.css' %}">
-    <style>
-        body {
-            background: #6677a1;
-            background: linear-gradient(to right, #d5d8de, #7d5cbf);
-            font-family: 'Roboto', sans-serif;
-        }
-
-        .bg {
-            background-image: url("{%static 'img/FreyaLogo.png' %}");
-            background-position: center center;
-            background-size: 25%;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            border: 1.5px solid #141117;
-            font-family: 'Montserrat', sans-serif;
-            background-color: white;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1.5px solid #141117;
-            border-right: 1.5px solid #141117;
-        }
-
-        th {
-            background-color: #3f0762;
-            color: #080000;
-        }
-
-        tr:nth-child(even) {
-            background-color: #c5c9e3;
-        }
-
-        tr:hover {
-            background-color: #e89cf3;
-        }
-
-        h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 36px;
-            text-align: center;
-            color: #0e1113;
-        }
-    </style>
 </head>
 
 <body>
-    {% extends 'layouts/header.html' %}
+    {% include 'layouts/header.html' %}
     {% block content %}
-    <div class="container mt-5" style="background-color: #f5f5f5; border-radius: 10px; padding: 20px;">
+    <div class="container mt-5" style="background-color: #93b8f0; border-radius: 10px; padding: 20px;">
         <h1 class="text-center">Lista de Eventos</h1>
         <div class="table-responsive">
             <table class="table table-bordered">

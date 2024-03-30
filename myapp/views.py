@@ -6,8 +6,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import EventRequest
 from .forms import EstadoSolicitudForm
-from django.contrib.auth.models import User
-from django.db import models
 # Create your views here.
 
 def home(request):
@@ -29,7 +27,7 @@ def academicMembersLogin(request):
         if user is None:
             return render(request, 'loginAcademicCommunity.html', {
                 'form': AuthenticationForm,
-                'error': 'Nombre de usuario o constraseña incorrecta!'
+                'error': 'Nombre de usuario o contraseña incorrecta!'
             })
         else:
             login(request, user)
@@ -48,7 +46,7 @@ def ccsaLogin(request):
         if user is None:
             return render(request, 'CCSAlogin.html', {
                 'form': AuthenticationForm,
-                'error': 'Nombre de usuario o constraseña incorrecta!'
+                'error': 'Nombre de usuario o contraseña incorrecta!'
             })
         else:
             login(request, user)
@@ -81,8 +79,7 @@ def createEventRequest(request):
 def eventRecord(request):
     user = request.user.id
     events = EventRequest.objects.filter(usuario_id = user)
-    print(events)
-    return render(request, 'event_record.html', {'eventos': events})
+    return render(request, 'eventRecord.html', {'eventos': events})
 
 
 #Ver solicitudes de eventos, cambiar estado de eventos
@@ -93,7 +90,7 @@ def eventRecord(request):
 # los dos que este logueado puede acceder a la seccion de aprobar/rechazar eventos.
 # Cuando se arregle el problema se realizará la respectiva actualizacion
 @login_required
-def lista_eventos(request):
+def eventsList(request):
     eventos = EventRequest.objects.all()
     if request.method == 'POST':
         form = EstadoSolicitudForm(request.POST)
@@ -105,7 +102,7 @@ def lista_eventos(request):
             evento = EventRequest.objects.get(id=evento_id)
             evento.estado_solicitud = estado_solicitud
             evento.save()
-            return redirect('lista_eventos')
+            return redirect('events-list')
     else:
         form = EstadoSolicitudForm()
-    return render(request, 'lista_eventos.html', {'eventos': eventos, 'form': form, 'messages': messages.get_messages(request)})
+    return render(request, 'eventsList.html', {'eventos': eventos, 'form': form, 'messages': messages.get_messages(request)})
