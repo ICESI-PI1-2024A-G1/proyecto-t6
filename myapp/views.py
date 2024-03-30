@@ -4,7 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from .forms import EventRequestForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import EventRequest
+from .models import EventRequest, Event
 from .forms import EstadoSolicitudForm
 # Create your views here.
 
@@ -91,10 +91,10 @@ def createEventRequest(request):
         form = EventRequestForm()
     return render(request, 'createEventRequest.html', {'form': form})
 
-def eventRecord(request):
+def eventRequestRecord(request):
     user = request.user.id
     events = EventRequest.objects.filter(usuario_id = user)
-    return render(request, 'eventRecord.html', {'eventos': events})
+    return render(request, 'eventRequestRecord.html', {'eventos': events})
 
 
 #Ver solicitudes de eventos, cambiar estado de eventos
@@ -105,7 +105,7 @@ def eventRecord(request):
 # los dos que este logueado puede acceder a la seccion de aprobar/rechazar eventos.
 # Cuando se arregle el problema se realizará la respectiva actualizacion
 @login_required
-def eventsList(request):
+def eventRequestList(request):
     eventos = EventRequest.objects.all()
     if request.method == 'POST':
         form = EstadoSolicitudForm(request.POST)
@@ -113,11 +113,29 @@ def eventsList(request):
         if form.is_valid():
             evento_id = form.cleaned_data['evento_id']
             estado_solicitud = form.cleaned_data['estado_solicitud']
-
             evento = EventRequest.objects.get(id=evento_id)
             evento.estado_solicitud = estado_solicitud
             evento.save()
-            return redirect('events-list')
+            if estado_solicitud == "aprobada":
+                eventRegistration(request, evento)
+                message = f'Se ha aceptado la solicitud de evento. Puede encontrarla en la lista de eventos.'
+                messages.success(request, message)
+            return redirect('/event-requests')
     else:
         form = EstadoSolicitudForm()
-    return render(request, 'eventsList.html', {'eventos': eventos, 'form': form, 'messages': messages.get_messages(request)})
+    return render(request, 'eventsRequestList.html', {'eventos': eventos, 'form': form, 'messages': messages.get_messages(request)})
+
+@login_required
+def eventRegistration(request, eventRequest):
+    event = Event(request.POST)
+    event.id = eventRequest.id
+    event.usuario = eventRequest.usuario
+    event.lugar = eventRequest.lugar
+    event.fecha_inicio = eventRequest.fecha_inicio
+    event.fecha_fin = eventRequest.fecha_fin
+    event.presupuesto = eventRequest.presupuesto
+    event.alimentacion = eventRequest.alimentacion
+    event.transporte =  eventRequest.transporte
+    event.profesor = eventRequest.profesor
+    event.save()
+    print("Se creo el nuevo evento")
