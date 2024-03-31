@@ -12,7 +12,11 @@ def home(request):
     return render(request, 'home.html')
 
 def index(request):
-    return render(request, 'index.html')
+    group = request.user.groups.values_list('id', flat=True).first()
+    if (group==1):
+        return render(request, 'index1.html')
+    if (group==3):
+        return render(request, 'index3.html')
 
 
 def academicMembersLogin(request):
@@ -57,7 +61,6 @@ def ccsaLogin(request):
             })
         else:
             group = user.groups.values_list('id', flat=True).first()
-            print(group)
             if (group==1 or group==2):
                 login(request, user)
                 return redirect('index')
