@@ -1,7 +1,7 @@
 
 from django.test import TestCase
 from django.contrib.auth.models import User
-from ..models import EventRequest
+from myapp.models import EventRequest
 
 class EventRequestTestCase(TestCase):
     def setUp(self):
