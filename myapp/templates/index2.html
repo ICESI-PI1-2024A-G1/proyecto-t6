@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Freya</title>
 </head>
 
 <body>
     {% extends 'layouts/header2.html' %}
     {% block content %}
-    <h1>Bienvenido {% if username %}{{ username }}{% else %}Invitado{% endif %}</h1>    {% endblock %}
+    <h1>Bienvenido {% if first_name %}{{ first_name }}{% else %}Invitado{% endif %}</h1>    {% endblock %}
 </body>
 
 </html>
