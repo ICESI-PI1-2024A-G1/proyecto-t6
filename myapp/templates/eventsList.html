@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'lib/bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
+
+    <title>Lista de eventos</title>
+    <link rel="stylesheet" href="{% static 'lib/bootstrap-5.3.3-dist/css/bootstrap.css' %}">
+</head>
+
+<body>
+    {% include 'layouts/header1.html' %}
+    {% block content %}
+    <div class="container mt-5" style="background-color: #93b8f0; border-radius: 10px; padding: 20px;">
+        <h1 class="text-center">Lista de Eventos</h1>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Lugar</th>
+                        <th>Fecha de Inicio</th>
+                        <th>Fecha de Fin</th>
+                        <th>Presupuesto</th>
+                        <th>Alimentación</th>
+                        <th>Transporte</th>
+                        <th>Profesor</th>
+                        <th>Extra</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for evento in eventos %}
+                    <tr>
+                        <td>{{ evento.id }}</td>
+                        <td>{{ evento.lugar }}</td>
+                        <td>{{ evento.fecha_inicio }}</td>
+                        <td>{{ evento.fecha_fin }}</td>
+                        <td>{{ evento.presupuesto }}</td>
+                        <td>
+                            <input class="form-check-input" type="checkbox" id="check_alimentacion_{{ evento.id }}">
+                            <label class="form-check-label" for="check_alimentacion_{{ evento.id }}">
+                                {{ evento.alimentacion }}
+                            </label>
+                        </td>
+                        <td>
+                            <input class="form-check-input" type="checkbox" id="check_transporte_{{ evento.id }}">
+                            <label class="form-check-label" for="check_transporte_{{ evento.id }}">
+                                {{ evento.transporte }}
+                            </label>
+                        </td>
+                        <td>{{ evento.profesor }}</td>
+                        <td>
+                            <input class="form-check-input" type="checkbox" id="check_extra_{{ evento.id }}">
+                            <label class="form-check-label" for="check_extra_{{ evento.id }}">
+                                {{ evento.extra }}
+                            </label>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm mt-1" data-bs-toggle="modal" data-bs-target="#editarActividades{{ evento.id }}">
+                                Editar Actividades
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {% for evento in eventos %}
+    <div class="modal fade" id="editarActividades{{ evento.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Actividades</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'save_tasks' evento.id %}" method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="lugar{{ evento.id }}" class="form-label">Lugar:</label>
+                            <input type="text" class="form-control" id="lugar{{ evento.id }}" name="lugar" value="{{ evento.lugar }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="presupuesto{{ evento.id }}" class="form-label">Presupuesto:</label>
+                            <input type="text" class="form-control" id="presupuesto{{ evento.id }}" name="presupuesto" value="{{ evento.presupuesto }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="alimentacion{{ evento.id }}" class="form-label">Alimentación:</label>
+                            <input type="text" class="form-control" id="alimentacion{{ evento.id }}" name="alimentacion" value="{{ evento.alimentacion }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="transporte{{ evento.id }}" class="form-label">Transporte:</label>
+                            <input type="text" class="form-control" id="transporte{{ evento.id }}" name="transporte" value="{{ evento.transporte }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="extra{{ evento.id }}" class="form-label">Extra:</label>
+                            <input type="text" class="form-control" id="extra{{ evento.id }}" name="extra" value="{{ evento.extra }}">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% endblock %}
+</body>
+
+</html>

@@ -13,4 +13,6 @@ urlpatterns = [
     path('event-request-record/', views.eventRequestRecord,
          name='event-request-record'),
     path('event-requests/', views.eventRequestList, name='event-request-list'),
+    path('event-list/', views.eventList, name = 'event-list'),
+    path('save-tasks/<int:evento_id>/', views.saveTasks, name='save_tasks'),
 ]

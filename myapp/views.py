@@ -6,6 +6,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import EventRequest, Event
 from .forms import EstadoSolicitudForm
+from django.db.models import Q
+
 # Create your views here.
 
 def home(request):
@@ -34,7 +36,8 @@ def academicMembersLogin(request):
                 'error': 'Nombre de usuario o contraseña incorrecta!'
             })
         else:
-            group = user.groups.values_list('name', flat=True).first()
+            group = user.groups.values_list('id', flat=True).first()
+            print("ID del usuario:", group)
             if (group==3 or group==4):
                 login(request, user)
                 return redirect('index')
@@ -95,10 +98,15 @@ def createEventRequest(request):
     return render(request, 'createEventRequest.html', {'form': form})
 
 def eventRequestRecord(request):
-    user = request.user.id
-    events = EventRequest.objects.filter(usuario_id = user)
-    return render(request, 'eventRequestRecord.html', {'eventos': events})
+    user = request.user
+    group = user.groups.values_list('id', flat=True).first()
 
+    if group in [3, 4]:
+        events = EventRequest.objects.filter(usuario_id=user)
+        return render(request, 'eventRequestRecord_2.html', {'eventos': events})
+    else:
+        events = EventRequest.objects.filter(Q(estado_solicitud='aprobada') | Q(estado_solicitud='rechazada'))
+        return render(request, 'eventRequestRecord.html', {'eventos': events})
 
 #Ver solicitudes de eventos, cambiar estado de eventos
 #Mostrar notificacion de eventos creados con detalles
@@ -127,6 +135,25 @@ def eventRequestList(request):
     else:
         form = EstadoSolicitudForm()
     return render(request, 'eventsRequestList.html', {'eventos': eventos, 'form': form, 'messages': messages.get_messages(request)})
+
+@login_required
+def eventList(request):
+    eventos = EventRequest.objects.filter(estado_solicitud = 'aprobada')
+    return render(request, 'eventsList.html', {'eventos': eventos})
+
+@login_required
+def saveTasks(request, evento_id):
+    if request.method == 'POST':
+        event = EventRequest.objects.get(pk=evento_id)
+        event.lugar = request.POST.get('lugar')
+        event.presupuesto = request.POST.get('presupuesto')
+        event.alimentacion = request.POST.get('alimentacion')
+        event.transporte = request.POST.get('transporte')
+        event.extra = request.POST.get('extra')
+        event.save()
+        return redirect('event-list')
+    return redirect('event-list')
+
 
 @login_required
 def eventRegistration(request, eventRequest):

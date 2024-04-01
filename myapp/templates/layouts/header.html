@@ -23,7 +23,7 @@
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
             <div class="container">
-                <a href="/index" class="navbar-brand">
+                <a href="index.html" class="navbar-brand">
                     <img src="{% static 'img/FreyaLogo.png' %}" alt="Freya Logo" class="brand-image elevation-3"
                         style="opacity: .8">
                 </a>
@@ -102,7 +102,7 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="/index" class="brand-link">
+            <a href="index.html" class="brand-link">
                 <span class="brand-text font-weight-light">Icesi Freya</span>
             </a>
 
@@ -129,33 +129,20 @@
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-envelope"></i>
+                            <a href="/create-event-request" class="nav-link">
+                                <i class="nav-icon fas fa-edit"></i>
                                 <p>
-                                    Solicitudes
-                                    <i class="fas fa-angle-left right"></i>
+                                    Solicitar evento
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="/event-requests" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Administrar solicitudes</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/event-request-record" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Historial de solicitudes</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/event-list" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Gestor de eventos</p>
-                                    </a>
-                                </li>
-                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/event-record" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    Historial de solicitides
+                                </p>
+                            </a>
                         </li>
 
                     </ul>
