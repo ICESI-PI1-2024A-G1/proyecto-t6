@@ -6,8 +6,8 @@
 ### Miembros:
 
 - David Henao Salazar - A00394033
-- Miguel Angel Gonzalez Arango - A0039
-- Santiago Castillo - A0039
+- Miguel Angel Gonzalez Arango - A00395687
+- Santiago Castillo - A00395559
 
 #### Code Style Usado: PEP-8
 
