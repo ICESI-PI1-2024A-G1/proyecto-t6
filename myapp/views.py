@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import EventRequest, Event
 from .forms import EstadoSolicitudForm
+from django.db.models import Q
 
 # Create your views here.
 
@@ -44,8 +45,9 @@ def academicMembersLogin(request):
                 },
             )
         else:
-            group = user.groups.values_list("name", flat=True).first()
-            if group == 3 or group == 4:
+            group = user.groups.values_list('id', flat=True).first()
+            print("ID del usuario:", group)
+            if (group==3 or group==4):
                 login(request, user)
                 return redirect("index")
 
@@ -118,14 +120,18 @@ def createEventRequest(request):
 
 
 def eventRequestRecord(request):
-    user = request.user.id
-    events = EventRequest.objects.filter(usuario_id=user)
-    return render(request, "eventRequestRecord.html", {"eventos": events})
+    user = request.user
+    group = user.groups.values_list('id', flat=True).first()
 
+    if group in [3, 4]:
+        events = EventRequest.objects.filter(usuario_id=user)
+        return render(request, 'eventRequestRecord_2.html', {'eventos': events})
+    else:
+        events = EventRequest.objects.filter(Q(estado_solicitud='aprobada') | Q(estado_solicitud='rechazada'))
+        return render(request, 'eventRequestRecord.html', {'eventos': events})
 
-# Ver solicitudes de eventos, cambiar estado de eventos
-# Mostrar notificacion de eventos creados con detalles
-
+#Ver solicitudes de eventos, cambiar estado de eventos
+#Mostrar notificacion de eventos creados con detalles
 
 # Como no hay un campo que diferencie al usuario de CCSlogin y el AcademyUser
 # en los modelos que tienen para almacenar esos usuarios, cualquiera de
@@ -155,6 +161,44 @@ def eventRequestList(request):
         "eventsRequestList.html",
         {"eventos": eventos, "form": form, "messages": messages.get_messages(request)},
     )
+
+
+@login_required
+def eventList(request):
+    eventos = EventRequest.objects.filter(estado_solicitud = 'aprobada')
+    return render(request, 'eventsList.html', {'eventos': eventos})
+
+@login_required
+def saveTasks(request, evento_id):
+    if request.method == 'POST':
+        event = EventRequest.objects.get(pk=evento_id)
+        event.lugar = request.POST.get('lugar')
+        event.presupuesto = request.POST.get('presupuesto')
+        event.alimentacion = request.POST.get('alimentacion')
+        event.transporte = request.POST.get('transporte')
+        event.extra = request.POST.get('extra')
+        event.save()
+        return redirect('event-list')
+    return redirect('event-list')
+
+
+@login_required
+def eventList(request):
+    eventos = EventRequest.objects.filter(estado_solicitud = 'aprobada')
+    return render(request, 'eventsList.html', {'eventos': eventos})
+
+@login_required
+def saveTasks(request, evento_id):
+    if request.method == 'POST':
+        event = EventRequest.objects.get(pk=evento_id)
+        event.lugar = request.POST.get('lugar')
+        event.presupuesto = request.POST.get('presupuesto')
+        event.alimentacion = request.POST.get('alimentacion')
+        event.transporte = request.POST.get('transporte')
+        event.extra = request.POST.get('extra')
+        event.save()
+        return redirect('event-list')
+    return redirect('event-list')
 
 
 @login_required
