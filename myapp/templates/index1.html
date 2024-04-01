@@ -10,8 +10,7 @@
 <body>
     {% extends 'layouts/header1.html' %}
     {% block content %}
-    <h1>Index</h1>
-    {% endblock %}
+    <h1>Bienvenido {% if username %}{{ username }}{% else %}Invitado{% endif %}</h1>    {% endblock %}
 </body>
 
 </html>

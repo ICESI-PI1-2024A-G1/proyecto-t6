@@ -15,13 +15,20 @@ def home(request):
     return render(request, "home.html")
 
 
+
+
 def index(request):
     group = request.user.groups.values_list("id", flat=True).first()
+    username = None
+    if request.user.is_authenticated:
+        username = request.user.username
+
     if group == 1:
-        return render(request, "index1.html")
+        return render(request, "index1.html", {'username': username})
     if group == 2:
-        return render(request, "index2.html")
-    return render(request, "index3.html")
+        return render(request, "index2.html", {'username': username})
+    return render(request, "index3.html", {'username': username})
+
 
 
 def academicMembersLogin(request):
