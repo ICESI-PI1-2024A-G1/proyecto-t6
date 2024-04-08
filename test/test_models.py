@@ -32,3 +32,17 @@ class EventRequestTestCase(TestCase):
         solicitud.estado_solicitud = 'Aprobado'
         solicitud.save()
         self.assertEqual(solicitud.estado_solicitud, 'Aprobado')
+
+    def test_eliminacion_solicitud_evento(self):
+        solicitud = EventRequest.objects.create(usuario=self.user, lugar='Kyoto', fecha_inicio='2024-06-01', fecha_fin='2024-06-05', presupuesto=2000, alimentacion='Incluida', transporte='Tren')
+        solicitud_id = solicitud.id
+        solicitud.delete()
+        with self.assertRaises(EventRequest.DoesNotExist):
+            EventRequest.objects.get(id=solicitud_id)
+
+    def test_edicion_solicitud_evento(self):
+        solicitud = EventRequest.objects.create(usuario=self.user, lugar='Nara', fecha_inicio='2024-07-01', fecha_fin='2024-07-05', presupuesto=1800, alimentacion='Incluida', transporte='Avión')
+        nueva_fecha_inicio = '2024-07-10'
+        solicitud.fecha_inicio = nueva_fecha_inicio
+        solicitud.save()
+        self.assertEqual(solicitud.fecha_inicio, nueva_fecha_inicio)
