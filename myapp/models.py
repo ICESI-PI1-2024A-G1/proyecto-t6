@@ -35,5 +35,5 @@ class Event(models.Model):
 class Notification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     message = models.TextField()
-    def _str_(self):
+    def __str__(self):
         return self.message
