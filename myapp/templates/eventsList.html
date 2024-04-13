@@ -8,13 +8,15 @@
     <link rel="stylesheet" href="{% static 'lib/bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
 
     <title>Lista de eventos</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'lib/bootstrap-5.3.3-dist/css/bootstrap.css' %}">
+    
 </head>
 
 <body>
-    {% include 'layouts/header1.html' %}
+    {% include 'layouts/sidebar1.html' %}
     {% block content %}
-    <div class="container mt-5" style="background-color: #93b8f0; border-radius: 10px; padding: 20px;">
+    <div class="main container mt-5" style="margin-left: 70px;background-color: #93b8f0; border-radius: 10px; padding: 20px;">
         <h1 class="text-center">Lista de Eventos</h1>
         <div class="table-responsive">
             <table class="table table-bordered">

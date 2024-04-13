@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,12 +6,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Freya</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 
 <body>
-    {% extends 'layouts/header1.html' %}
+    {%include 'layouts/sidebar1.html' %}
     {% block content %}
-    <h1>Bienvenido {% if first_name %}{{ first_name }}{% else %}Invitado{% endif %}</h1>    {% endblock %}
+    <div class="main">
+        <h1>Bienvenido {% if first_name %}{{ first_name }}{% else %}Invitado{% endif %}</h1>
+    </div>
+        {% endblock %}
 </body>
 
 </html>

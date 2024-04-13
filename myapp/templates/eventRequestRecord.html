@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'lib/bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
 
     <title>Historial de Registros</title>
@@ -12,9 +13,9 @@
 </head>
 
 <body>
-    {% include 'layouts/header1.html' %}
+    {% include 'layouts/sidebar1.html' %}
     {% block content %}
-    <div class="container mt-5" style="background-color: #93b8f0; border-radius: 10px; padding: 20px;">
+    <div class="main container mt-5" style="margin-left: 75px; background-color: #93b8f0; border-radius: 10px; padding: 20px;">
         <h1 class="text-center">Historial de Solicitudes</h1>
         <div class="table-responsive">
             <table class="table table-bordered">
