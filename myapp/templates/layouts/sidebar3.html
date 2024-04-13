@@ -15,7 +15,7 @@
 <body>
     
         <aside id="sidebar">
-            <div class="d-flex">
+            <div class="d-flex" id="logo_button">
                 <button class="toggle-btn" type="button">
                     <i class="lni lni-grid-alt"></i>
                 </button>
@@ -42,12 +42,13 @@
                         <span>Historial de solicitudes</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
+                <li class="sidebar-item" id="notification">
                     <a href="#" class="sidebar-link">
                         <i class="lni lni-alarm"></i>
                         <span>Notification</span>
                     </a>
                 </li>
+
             </ul>
             <div class="sidebar-footer">
                 <a href="/logout" class="sidebar-link">
@@ -56,6 +57,20 @@
                 </a>
             </div>
         </aside>
+
+        <div id="notification_box" class="notification_box">
+            <div class="ittem_notification_box"><span>Mensage</span></div>
+            <div class="ittem_notification_box"><span>Mensage</span></div>
+            <div class="ittem_notification_box"><span>Mensage</span></div>
+            <div class="ittem_notification_box"><span>Mensage</span></div>
+            <div class="ittem_notification_box"><span>Mensage</span></div>
+            <div class="ittem_notification_box"><span>Mensage</span></div>
+            <div class="ittem_notification_box"><span>Mensage</span></div>
+            <div class="ittem_notification_box"><span>Mensage</span></div>
+            <div class="ittem_notification_box"><span>Mensage</span></div>
+
+        </div>
+
         <div id="content", name="content", class="main">
             {% block content %}
             {% endblock %}
@@ -64,6 +79,7 @@
     
     <script src="{% static 'lib/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/sidebar.js' %}"></script>
+
 </body>
 
 </html>
