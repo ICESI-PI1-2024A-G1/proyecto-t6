@@ -1,18 +1,21 @@
 from django.urls import path
-from . import views
+from .views import auth
+from .views import event
+from .views import eventRequest
+from .views import cortex
 
 urlpatterns = [
-    path('', views.home, name ='home'),
-    path('academic-members-login/', views.academicMembersLogin,
+    path('', cortex.home, name ='home'),
+    path('academic-members-login/', auth.academicMembersLogin,
          name='academic-members-login'),
-    path('ccsa-login/', views.ccsaLogin, name='ccsa-login'),
-    path('index/', views.index, name='index'),
-    path('logout/', views.signout, name='logout'),
-    path('create-event-request/', views.createEventRequest,
+    path('ccsa-login/', auth.ccsaLogin, name='ccsa-login'),
+    path('index/', cortex.index, name='index'),
+    path('logout/', auth.signout, name='logout'),
+    path('create-event-request/', eventRequest.createEventRequest,
          name='create-event-request'),
-    path('event-request-record/', views.eventRequestRecord,
+    path('event-request-record/', eventRequest.eventRequestRecord,
          name='event-request-record'),
-    path('event-requests/', views.eventRequestList, name='event-request-list'),
-    path('event-list/', views.eventList, name = 'event-list'),
-    path('save-tasks/<int:evento_id>/', views.saveTasks, name='save_tasks'),
+    path('event-requests/', eventRequest.eventRequestList, name='event-request-list'),
+    path('event-list/', event.eventList, name = 'event-list'),
+    path('save-tasks/<int:evento_id>/', event.saveTasks, name='save_tasks'),
 ]
