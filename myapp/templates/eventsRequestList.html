@@ -109,7 +109,7 @@
 </head>
 
 <body>
-    {% include 'layouts/sidebar1.html' %}
+    {% include 'layouts/sidebar1.html' with notificaciones=notificaciones%}
     <div class="main container mt-5">
         <!-- Mostrar notificaciones cuando se crea un evento -->
         {% if messages %}

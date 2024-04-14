@@ -48,7 +48,8 @@ body, html {
     width:300px; max-height: 350px; left: 70px;
     background-color: #444;
     position:absolute;
-    top:35%; display:none;
+    top:25%;
+    display:none;
     border-radius:0 10px 10px 0;
     border-radius:0 10px 10px 0;
     cursor:pointer;
