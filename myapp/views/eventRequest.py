@@ -6,24 +6,29 @@ from myapp.models import EventRequest
 from myapp.forms import EstadoSolicitudForm
 from django.db.models import Q
 from .event import eventRegistration
+from myapp.models import Professor
+from django import forms
 
 
 @login_required
 def createEventRequest(request):
+    user = request.user
+    group = user.groups.values_list('id', flat=True).first()
     if request.method == "POST":
         form = EventRequestForm(request.POST)
+        if group != 4:
+            form.fields['profesor'].widget = forms.HiddenInput()
         if form.is_valid():
             solicitud = form.save(commit=False)
-            solicitud.usuario = request.user  # Asigna el usuario a la solicitud
+            solicitud.usuario = request.user
             solicitud.save()
-
-            # Mostrar notificacion de eventos creados con detalles
-
             message = f"Se ha creado una solicitud de evento: {solicitud}"
             messages.success(request, message)
             return redirect("create-event-request")
     else:
         form = EventRequestForm()
+        if group != 4:
+            form.fields['profesor'].widget = forms.HiddenInput()
     return render(request, "createEventRequest.html", {"form": form})
 
 @login_required
