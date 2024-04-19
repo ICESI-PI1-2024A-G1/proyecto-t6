@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
 from myapp.models import EventRequest
 from myapp.models import Event
+from django.contrib.auth.models import User
+from django.core.mail import EmailMessage
 
 @login_required
 def eventRegistration(request, eventRequest):
@@ -47,6 +49,16 @@ def finishEvent(request, evento_id):
     evento.save()
     message = f"Se ha finalizado el evento."
     messages.success(request, message)
+
+    # Obtener el correo electrónico del usuario asociado al evento
+    user_email = evento.usuario.email
+    asunto = "Encuesta de Satisfacción: ¡Queremos escucharte!"
+    url_form = "https://forms.gle/y1LujHetTb7Qq6zv7"
+
+    cuerpo = "Hola, Esperamos que haya tenido una experiencia satisfactoria con nuestro servicio. Para seguir mejorando y ofrecerle un servicio excepcional, le invitamos a completar nuestra Encuesta de Satisfacción. Por favor, tómese unos minutos para responder a las siguientes preguntas. Su opinión es muy valiosa para nosotros: "
+    email = EmailMessage(asunto, cuerpo + url_form, "freyaicesi@gmail.com", [user_email])
+    email.send()
+    print("Se ha enviado un email a: " + user_email)
 
     return redirect('event-list') 
 
