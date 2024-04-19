@@ -19,7 +19,7 @@ class EventRequest(models.Model):
     transporte = models.CharField(max_length=200)
     profesor = models.ForeignKey(Professor, null=True, blank=True, on_delete=models.SET_NULL)
     estado_solicitud = models.CharField(null=True, max_length=200, default='Pendiente')
-    extra = models.CharField(null=True, max_length=200)
+    extra = models.CharField(null=True, blank=True, max_length=200)
 
     def __str__(self):
         return f'Usuario: {self.usuario}, Lugar: {self.lugar}, Fecha de inicio: {self.fecha_inicio}, Fecha de fin: {self.fecha_fin}, Presupuesto: {self.presupuesto}, Alimentación: {self.alimentacion}, Transporte: {self.transporte}, Profesor: {self.profesor}, Estado: {self.estado_solicitud}, Extra: {self.extra}'
@@ -33,7 +33,7 @@ class Event(models.Model):
     alimentacion = models.CharField(max_length=200)
     transporte = models.CharField(max_length=200)
     profesor = models.ForeignKey(Professor, null=True, on_delete=models.SET_NULL)
-    extra = models.CharField(null = True, max_length = 200)
+    extra = models.CharField(blank=True, null=True, max_length = 200)
 
     def __str__(self):
         return f'Usuario: {self.usuario}, Lugar: {self.lugar}, Fecha de inicio: {self.fecha_inicio}, Fecha de fin: {self.fecha_fin}, Presupuesto: {self.presupuesto}, Alimentación: {self.alimentacion}, Transporte: {self.transporte}, Profesor: {self.profesor}, Extra: {self.extra}'
@@ -43,4 +43,3 @@ class Notification(models.Model):
     message = models.TextField()
     def _str_(self):
         return self.message
-    

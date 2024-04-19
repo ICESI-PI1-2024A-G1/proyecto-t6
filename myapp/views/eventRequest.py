@@ -40,7 +40,7 @@ def eventRequestRecord(request):
         events = EventRequest.objects.filter(usuario_id=user)
         return render(request, 'eventRequestRecord_2.html', {'eventos': events})
     else:
-        events = EventRequest.objects.filter(Q(estado_solicitud='aprobada') | Q(estado_solicitud='rechazada'))
+        events = EventRequest.objects.filter(Q(estado_solicitud='Aprobada') | Q(estado_solicitud='Rechazada'))
         return render(request, 'eventRequestRecord.html', {'eventos': events})
     
 @login_required
@@ -55,7 +55,7 @@ def eventRequestList(request):
             evento = EventRequest.objects.get(id=evento_id)
             evento.estado_solicitud = estado_solicitud
             evento.save()
-            if estado_solicitud == "aprobada":
+            if estado_solicitud == "Aprobada":
                 eventRegistration(request, evento)
                 message = f"Se ha aceptado la solicitud de evento. Puede encontrarla en la lista de eventos."
                 messages.success(request, message)

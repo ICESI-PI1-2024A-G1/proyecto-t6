@@ -164,9 +164,9 @@
                                 {% csrf_token %}
                                 <input type="hidden" name="evento_id" value="{{ evento.id }}">
                                 <select name="estado_solicitud" class="form-control">
-                                    <option value="pendiente">Pendiente</option>
-                                    <option value="aprobada">Aprobada</option>
-                                    <option value="rechazada">Rechazada</option>
+                                    <option value="Pendiente">Pendiente</option>
+                                    <option value="Aprobada">Aprobar</option>
+                                    <option value="Rechazada">Rechazar</option>
                                 </select>
                                 <button type="submit" class="btn btn-primary mt-2">Actualizar</button>
                             </form>
