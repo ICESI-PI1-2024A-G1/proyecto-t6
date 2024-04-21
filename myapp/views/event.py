@@ -21,13 +21,13 @@ def eventRegistration(request, eventRequest):
 
 @login_required
 def eventList(request):
-    eventos = EventRequest.objects.filter(estado_solicitud = 'Aprobada')
+    eventos = Event.objects.filter(estado_solicitud = 'En curso')
     return render(request, 'eventsList.html', {'eventos': eventos})
 
 @login_required
 def saveTasks(request, evento_id):
     if request.method == 'POST':
-        event = EventRequest.objects.get(pk=evento_id)
+        event = Event.objects.get(pk=evento_id)
         event.lugar = request.POST.get('lugar')
         event.presupuesto = request.POST.get('presupuesto')
         event.alimentacion = request.POST.get('alimentacion')
@@ -40,7 +40,7 @@ def saveTasks(request, evento_id):
 
 @login_required
 def finishEvent(request, evento_id):
-    evento = get_object_or_404(EventRequest, id=evento_id)
+    evento = get_object_or_404(Event, id=evento_id)
 
     # Cambiar el estado de solicitud a "Finalizado"
     evento.estado_solicitud = 'Finalizado'
@@ -53,5 +53,5 @@ def finishEvent(request, evento_id):
 @login_required
 def eventRegistry(request):
     user = request.user
-    events = EventRequest.objects.filter(estado_solicitud='Finalizado')
+    events = Event.objects.filter(estado_solicitud='Finalizado')
     return render(request, 'finishedEvents.html', {'eventos': events})

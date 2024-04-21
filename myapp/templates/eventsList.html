@@ -33,38 +33,38 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for evento in eventos %}
+                    {% for event in eventos %}
                     <tr>
-                        <td>{{ evento.id }}</td>
-                        <td>{{ evento.lugar }}</td>
-                        <td>{{ evento.fecha_inicio }}</td>
-                        <td>{{ evento.fecha_fin }}</td>
-                        <td>{{ evento.presupuesto }}</td>
+                        <td>{{ event.id }}</td>
+                        <td>{{ event.lugar }}</td>
+                        <td>{{ event.fecha_inicio }}</td>
+                        <td>{{ event.fecha_fin }}</td>
+                        <td>{{ event.presupuesto }}</td>
                         <td>
-                            <input class="form-check-input" type="checkbox" id="check_alimentacion_{{ evento.id }}">
-                            <label class="form-check-label" for="check_alimentacion_{{ evento.id }}">
-                                {{ evento.alimentacion }}
+                            <input class="form-check-input" type="checkbox" id="check_alimentacion_{{ event.id }}">
+                            <label class="form-check-label" for="check_alimentacion_{{ event.id }}">
+                                {{ event.alimentacion }}
                             </label>
                         </td>
                         <td>
-                            <input class="form-check-input" type="checkbox" id="check_transporte_{{ evento.id }}">
-                            <label class="form-check-label" for="check_transporte_{{ evento.id }}">
-                                {{ evento.transporte }}
+                            <input class="form-check-input" type="checkbox" id="check_transporte_{{ event.id }}">
+                            <label class="form-check-label" for="check_transporte_{{ event.id }}">
+                                {{ event.transporte }}
                             </label>
                         </td>
-                        <td>{{ evento.profesor }}</td>
+                        <td>{{ event.profesor }}</td>
                         <td>
-                            <input class="form-check-input" type="checkbox" id="check_extra_{{ evento.id }}">
-                            <label class="form-check-label" for="check_extra_{{ evento.id }}">
-                                {{ evento.extra }}
+                            <input class="form-check-input" type="checkbox" id="check_extra_{{ event.id }}">
+                            <label class="form-check-label" for="check_extra_{{ event.id }}">
+                                {{ event.extra }}
                             </label>
                         </td>
                         <td>
                             <button type="button" class="btn btn-primary btn-sm mt-1" data-bs-toggle="modal"
-                                data-bs-target="#editarActividades{{ evento.id }}">
+                                data-bs-target="#editarActividades{{ event.id }}">
                                 Editar Actividades
                             </button>
-                            <form method="post" action="{% url 'finish_event' evento.id %}">
+                            <form method="post" action="{% url 'finish_event' event.id %}">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-success btn-sm mt-1">
                                     Finalizar Evento

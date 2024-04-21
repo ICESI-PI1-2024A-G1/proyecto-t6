@@ -33,10 +33,11 @@ class Event(models.Model):
     alimentacion = models.CharField(max_length=200)
     transporte = models.CharField(max_length=200)
     profesor = models.ForeignKey(Professor, null=True, on_delete=models.SET_NULL)
+    estado_solicitud = models.CharField(null=True, max_length=200, default='En curso')
     extra = models.CharField(blank=True, null=True, max_length = 200)
 
     def __str__(self):
-        return f'Usuario: {self.usuario}, Lugar: {self.lugar}, Fecha de inicio: {self.fecha_inicio}, Fecha de fin: {self.fecha_fin}, Presupuesto: {self.presupuesto}, Alimentación: {self.alimentacion}, Transporte: {self.transporte}, Profesor: {self.profesor}, Extra: {self.extra}'
+        return f'Usuario: {self.usuario}, Lugar: {self.lugar}, Fecha de inicio: {self.fecha_inicio}, Fecha de fin: {self.fecha_fin}, Presupuesto: {self.presupuesto}, Alimentación: {self.alimentacion}, Transporte: {self.transporte}, Profesor: {self.profesor}, Estado: {self.estado_solicitud}, Extra: {self.extra}'
 
 class Notification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
