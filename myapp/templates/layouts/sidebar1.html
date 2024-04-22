@@ -16,7 +16,7 @@
     
         <aside id="sidebar">
             <div class="d-flex">
-                <button class="toggle-btn" type="button">
+                <button class="toggle-btn" type="button" id="logo_button">
                     <i class="lni lni-grid-alt"></i>
                 </button>
                 <div class="sidebar-logo">
@@ -48,11 +48,11 @@
                             <a href="/event-list" class="sidebar-link">Gestor de eventos</a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Eventos finalizados (en desarrollo)</a>
+                            <a href="/event-registry" class="sidebar-link">Eventos finalizados</a>
                         </li>
                     </ul>
                 </li>
-                <li class="sidebar-item">
+                <li class="sidebar-item" id="notification">
                     <a href="#" class="sidebar-link">
                         <i class="lni lni-alarm"></i>
                         <span>Notification</span>
@@ -66,6 +66,16 @@
                 </a>
             </div>
         </aside>
+
+        <div id="notification_box" class="notification_box">
+            {% for notificacion in notificaciones %}
+            <div class="ittem_notification_box">
+                <span>{{ notificacion.message }}</span>
+            </div>
+            {% endfor %}
+
+        </div>
+
         <div id="content", name="content", class="main">
             {% block content %}
             {% endblock %}

@@ -18,4 +18,6 @@ urlpatterns = [
     path('event-requests/', eventRequest.eventRequestList, name='event-request-list'),
     path('event-list/', event.eventList, name = 'event-list'),
     path('save-tasks/<int:evento_id>/', event.saveTasks, name='save_tasks'),
+    path('event-registry/', event.eventRegistry, name = 'event-registry'),
+    path('finish-event/<int:evento_id>/', event.finishEvent, name='finish_event'),
 ]

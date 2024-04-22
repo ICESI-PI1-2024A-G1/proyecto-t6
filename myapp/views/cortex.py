@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from myapp.models import Notification
 def home(request):
     return render(request, "home.html")
 
@@ -13,4 +13,5 @@ def index(request):
         return render(request, "index1.html", {'first_name': firstName})
     if group == 2:
         return render(request, "index2.html", {'first_name': firstName})
+
     return render(request, "index3.html", {'first_name': firstName})
