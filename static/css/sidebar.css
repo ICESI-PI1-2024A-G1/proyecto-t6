@@ -44,6 +44,31 @@ body, html {
     flex-direction: column;
 }
 
+.notification_box{
+    width:300px; max-height: 350px; left: 70px;
+    background-color: #444;
+    position:absolute;
+    top:25%;
+    display:none;
+    border-radius:0 10px 10px 0;
+    border-radius:0 10px 10px 0;
+    cursor:pointer;
+    overflow-y:scroll;
+}
+
+.notification_box.expand{
+    left:260px;
+}
+
+.ittem_notification_box{
+    color:white; padding: 20px;
+    border-bottom:1px solid #fff;
+}
+
+.ittem_notification_box:hover{
+    text-decoration:underline;
+}
+
 #sidebar.expand {
     width: 260px;
     min-width: 260px;

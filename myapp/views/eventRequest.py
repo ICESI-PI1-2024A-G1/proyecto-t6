@@ -10,6 +10,10 @@ from myapp.models import Professor
 from django import forms
 
 
+from django.shortcuts import render
+from myapp.models import Notification
+
+
 @login_required
 def createEventRequest(request):
     user = request.user
@@ -23,6 +27,9 @@ def createEventRequest(request):
             solicitud.usuario = request.user
             solicitud.save()
             message = f"Se ha creado una solicitud de evento: {solicitud}"
+
+            notificacion = Notification.objects.create(message=message)
+
             messages.success(request, message)
             return redirect("create-event-request")
     else:
@@ -57,8 +64,24 @@ def eventRequestList(request):
             evento.save()
             if estado_solicitud == "Aprobada":
                 eventRegistration(request, evento)
-                message = f"Se ha aceptado la solicitud de evento. Puede encontrarla en la lista de eventos."
+                message = f"Se ha aceptado la solicitud de un evento. Puede encontrarla en la lista de eventos."
+                notificacion = Notification.objects.create(message=message)
+
+                notificaciones = Notification.objects.all().order_by('-id')
+
                 messages.success(request, message)
+
+                
+            if estado_solicitud == "rechazada":
+                eventRegistration(request, evento)
+                message = f"Se ha rechazado la solicitud de un evento. Para más detalles consulta el historial de solicitudes."
+
+                notificacion = Notification.objects.create(message=message)
+
+                notificaciones = Notification.objects.all().order_by('-id')
+
+                messages.success(request, message)
+
             return redirect("/event-requests")
     else:
         form = EstadoSolicitudForm()

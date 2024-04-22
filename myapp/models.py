@@ -39,7 +39,6 @@ class Event(models.Model):
         return f'Usuario: {self.usuario}, Lugar: {self.lugar}, Fecha de inicio: {self.fecha_inicio}, Fecha de fin: {self.fecha_fin}, Presupuesto: {self.presupuesto}, Alimentación: {self.alimentacion}, Transporte: {self.transporte}, Profesor: {self.profesor}, Extra: {self.extra}'
 
 class Notification(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     message = models.TextField()
-    def _str_(self):
+    def __str__(self):
         return self.message
