@@ -52,7 +52,9 @@ def eventRequestRecord(request):
     
 @login_required
 def eventRequestList(request):
-    eventos = EventRequest.objects.all()
+    user = request.user
+    group = user.groups.values_list('id', flat=True).first()
+    eventos = EventRequest.objects.filter(estado_solicitud='Pendiente')
     if request.method == "POST":
         form = EstadoSolicitudForm(request.POST)
         print(request.POST)
@@ -62,6 +64,7 @@ def eventRequestList(request):
             evento = EventRequest.objects.get(id=evento_id)
             evento.estado_solicitud = estado_solicitud
             evento.save()
+            
             if estado_solicitud == "Aprobada":
                 eventRegistration(request, evento)
                 message = f"Se ha aceptado la solicitud de un evento. Puede encontrarla en la lista de eventos."
