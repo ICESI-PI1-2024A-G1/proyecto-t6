@@ -40,6 +40,8 @@ class Event(models.Model):
 
 class Notification(models.Model):
     message = models.TextField()
+    url = models.CharField(null = True, max_length = 200, blank=True)
+
     def __str__(self):
         return self.message
 

@@ -70,7 +70,7 @@
         <div id="notification_box" class="notification_box">
             {% for notificacion in notificaciones %}
             <div class="ittem_notification_box">
-                <span>{{ notificacion.message }}</span>
+                <a href="{{notificacion.url}}"><span>{{ notificacion.message }}</span></a>
             </div>
             {% endfor %}
 

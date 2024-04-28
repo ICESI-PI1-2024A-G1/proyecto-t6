@@ -54,7 +54,7 @@ def finishEvent(request, evento_id):
 
     #Enviar notificacion cuando se finalice un evento
     message_notification = "Se ha finalizado un evento. Puedes ver los detalles en el historial de eventos"
-    notificacion = Notification.objects.create(message=message_notification)
+    notificacion = Notification.objects.create(message=message_notification, url='/event-registry')
 
 
 

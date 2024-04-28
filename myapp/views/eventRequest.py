@@ -28,7 +28,7 @@ def createEventRequest(request):
             solicitud.save()
             message = f"Se ha creado una solicitud de evento: {solicitud}"
 
-            notificacion = Notification.objects.create(message=message)
+            notificacion = Notification.objects.create(message=message, url="/event-requests")
 
             messages.success(request, message)
             return redirect("create-event-request")
@@ -65,7 +65,7 @@ def eventRequestList(request):
             if estado_solicitud == "Aprobada":
                 eventRegistration(request, evento)
                 message = f"Se ha aceptado la solicitud de un evento. Puede encontrarla en la lista de eventos."
-                notificacion = Notification.objects.create(message=message)
+                notificacion = Notification.objects.create(message=message, url="/event-list")
 
                 notificaciones = Notification.objects.all().order_by('-id')
 
@@ -76,7 +76,7 @@ def eventRequestList(request):
                 eventRegistration(request, evento)
                 message = f"Se ha rechazado la solicitud de un evento. Para más detalles consulta el historial de solicitudes."
 
-                notificacion = Notification.objects.create(message=message)
+                notificacion = Notification.objects.create(message=message, url="/event-request-record")
 
                 notificaciones = Notification.objects.all().order_by('-id')
 
