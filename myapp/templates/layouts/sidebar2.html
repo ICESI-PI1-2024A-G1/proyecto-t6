@@ -25,10 +25,18 @@
             </div>
             <ul class="sidebar-nav">
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                    <a href="#" class="sidebar-link collapsed has-dropdown eventos-dropdown" data-bs-toggle="collapse" data-bs-target="#eventos" aria-expanded="false" aria-controls="eventos">
                         <i class="lni lni-travel"></i>
-                        <span>Gestor de eventos (en desarrollo)</span>
+                        <span>Eventos</span>
                     </a>
+                    <ul id="eventos" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="/event-list-apoyo" class="sidebar-link">Gestor de eventos</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/finish-event-apoyo" class="sidebar-link">Eventos finalizados</a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link">

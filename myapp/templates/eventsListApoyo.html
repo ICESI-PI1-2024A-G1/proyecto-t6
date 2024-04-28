@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'lib/bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <title>Lista de eventos</title>
+</head>
+
+<body>
+    {% include 'layouts/sidebar2.html' %}
+    {% block content %}
+    <div class="main container mt-5"
+        style="margin-left: 70px; background-color: #93b8f0; border-radius: 10px; padding: 20px;">
+        <h1 class="text-center">Lista de Eventos</h1>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Lugar</th>
+                        <th>Fecha de Inicio</th>
+                        <th>Fecha de Fin</th>
+                        <th>Presupuesto</th>
+                        <th>Alimentación</th>
+                        <th>Transporte</th>
+                        <th>Profesor</th>
+                        <th>Extra</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for event in eventos %}
+                <tr>
+                    <form method="post" action="{% url 'guardar_evento' %}">
+                        {% csrf_token %}
+                        <td>{{ event.id }}</td>
+                        <td>{{ event.lugar }}</td>
+                        <td>{{ event.fecha_inicio }}</td>
+                        <td>{{ event.fecha_fin }}</td>
+                        <td>{{ event.presupuesto }}</td>
+                        <td>
+                            <input class="form-check-input" type="checkbox" name="estado_alimentacion" id="check_alimentacion_{{ event.id }}" {% if event.estado_alimentacion %} checked {% endif %}>
+                            <label class="form-check-label" for="check_alimentacion_{{ event.id }}">
+                                <script>
+                                    console.log("{{event}}")
+                                </script>
+                                {{ event.alimentacion }}
+                            </label>
+                        </td>
+                        <td>
+                            <input class="form-check-input" type="checkbox" name="estado_transporte" id="check_transporte_{{ event.id }}" {% if event.estado_transporte %} checked {% endif %}>
+                            <label class="form-check-label" for="check_transporte_{{ event.id }}">
+                                {{ event.transporte }}
+                            </label>
+                        </td>
+                        <td>{{ event.profesor }}</td>
+                        <td>
+                            <input class="form-check-input" type="checkbox" name="estado_extras" id="check_extra_{{ event.id }}" {% if event.estado_extras %} checked {% endif %}>
+                            <label class="form-check-label" for="check_extra_{{ event.id }}">
+                                {{ event.extra }}
+                            </label>
+                        </td>
+                        <td>
+                            <input type="hidden" name="event_id" value="{{ event.id }}">
+                            <button type="submit" class="btn btn-primary btn-sm mt-1">
+                                Guardar
+                            </button>
+                        </td>
+                    </form>
+                </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+    {% endblock %}
+</body>
+
+</html>

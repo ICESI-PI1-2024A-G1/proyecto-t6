@@ -67,3 +67,35 @@ def eventRegistry(request):
     user = request.user
     events = Event.objects.filter(estado_solicitud='Finalizado')
     return render(request, 'finishedEvents.html', {'eventos': events})
+
+@login_required
+def guardar_evento(request):
+    if request.method == 'POST':
+        event_id = request.POST.get('event_id')
+        estado_alimentacion = request.POST.get("estado_alimentacion") == 'on'
+        estado_transporte = request.POST.get('estado_transporte') == 'on'
+        estado_extras = request.POST.get('estado_extras') == 'on'
+
+
+        event = Event.objects.get(pk=event_id)
+        event.estado_alimentacion = estado_alimentacion
+        event.estado_transporte = estado_transporte
+        event.estado_extras = estado_extras
+        event.save()
+
+    # Redirige a la página que desees después de guardar
+    if(request.user.groups.values_list("id", flat=True).first() == 2):
+        return redirect('event-list-apoyo')
+
+    return redirect('event-list')
+
+
+@login_required
+def eventListApoyo(request):
+    eventos = Event.objects.filter(estado_solicitud = 'En curso')
+    return render(request, 'eventsListApoyo.html', {'eventos': eventos})
+
+@login_required
+def finishEventApoyo(request):
+    events = Event.objects.filter(estado_solicitud='Finalizado')
+    return render(request, 'finishedEventsApoyo.html', {'eventos': events})
