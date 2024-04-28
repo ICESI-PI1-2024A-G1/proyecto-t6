@@ -42,6 +42,15 @@
                         <span>Notification</span>
                     </a>
                 </li>
+                <li class="sidebar-item" id="ceremony">
+                    <a href="#" class="sidebar-link">
+                        <span>Modo Ceremonia</span>
+                    </a>
+                    <label class="switch">
+                        <input type="checkbox" id="ceremony-switch">
+                        <span class="slider round"></span>
+                    </label>
+                </li>
             </ul>
             <div class="sidebar-footer">
                 <a href="/logout" class="sidebar-link">
@@ -72,6 +81,16 @@
     
     <script src="{% static 'lib/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/sidebar.js' %}"></script>
+    <script>
+        document.getElementById('ceremony-switch').addEventListener('change', function () {
+            if (this.checked) {
+                window.location.href = '/ceremony-plan';
+            }
+            else{
+                window.location.href = '/index';
+            }
+        });
+    </script>
 </body>
 
 </html>

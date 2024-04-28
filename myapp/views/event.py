@@ -2,9 +2,11 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
 from myapp.models import EventRequest
-from myapp.models import Event
+from myapp.models import Event, Ceremony, CeremonyActivity
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
+from myapp.forms import CeremonyActivityForm
+
 
 @login_required
 def eventRegistration(request, eventRequest):
@@ -21,10 +23,12 @@ def eventRegistration(request, eventRequest):
     event.save()
     print("Se creo el nuevo evento")
 
+
 @login_required
 def eventList(request):
-    eventos = Event.objects.filter(estado_solicitud = 'En curso')
+    eventos = Event.objects.filter(estado_solicitud='En curso')
     return render(request, 'eventsList.html', {'eventos': eventos})
+
 
 @login_required
 def saveTasks(request, evento_id):
@@ -56,14 +60,82 @@ def finishEvent(request, evento_id):
     url_form = "https://forms.gle/y1LujHetTb7Qq6zv7"
 
     cuerpo = "Hola, Esperamos que haya tenido una experiencia satisfactoria con nuestro servicio. Para seguir mejorando y ofrecerle un servicio excepcional, le invitamos a completar nuestra Encuesta de Satisfacción. Por favor, tómese unos minutos para responder a las siguientes preguntas. Su opinión es muy valiosa para nosotros: "
-    email = EmailMessage(asunto, cuerpo + url_form, "freyaicesi@gmail.com", [user_email])
+    email = EmailMessage(asunto, cuerpo + url_form,
+                         "freyaicesi@gmail.com", [user_email])
     email.send()
     print("Se ha enviado un email a: " + user_email)
 
-    return redirect('event-list') 
+    return redirect('event-list')
+
 
 @login_required
 def eventRegistry(request):
     user = request.user
     events = Event.objects.filter(estado_solicitud='Finalizado')
     return render(request, 'finishedEvents.html', {'eventos': events})
+
+
+@login_required
+def ceremonyPlan(request):
+    # Verificar si existe una ceremonia activa
+    ceremony = Ceremony.objects.first()
+
+    # Si no hay ninguna ceremonia, crear una automáticamente
+    if not ceremony:
+        ceremony = Ceremony.objects.create(
+            title=ceremony.title, start_date=ceremony.start_date, end_date=ceremony.end_date)
+
+        CeremonyActivity.objects.create(
+            title="Iniciar gestion", ceremony=ceremony)
+
+    # Obtener las actividades de la ceremonia
+    ceremony_activities = ceremony.ceremony_activities.all()
+
+    if request.method == 'POST':
+
+        if "fecha_inicio" in request.POST and "fecha_fin" in request.POST:
+            start_date = request.POST["fecha_inicio"]
+            end_date = request.POST["fecha_fin"]
+            ceremony.start_date = start_date
+            ceremony.end_date = end_date
+            ceremony.save()
+
+            return redirect("ceremony-plan")
+        else:
+            form = CeremonyActivityForm(request.POST)
+            if form.is_valid():
+                activity = form.save(commit=False)
+                activity.ceremony = ceremony
+                activity.save()
+                return redirect('ceremony-plan')
+    else:
+        form = CeremonyActivityForm()
+
+    return render(request, 'ceremonyPlanning.html', {'ceremony': ceremony, 'ceremony_activities': ceremony_activities, 'form': form})
+
+
+@login_required
+def finish_activity(request, activity_id):
+    if request.method == 'POST':
+
+        activity = CeremonyActivity.objects.get(id=activity_id)
+        activity.completed = True
+        activity.save()
+
+    return redirect('ceremony-plan')
+
+
+@login_required
+def reset_ceremony(request):
+
+    if request.method == 'POST':
+
+        ceremony = get_object_or_404(Ceremony)
+
+        ceremony.ceremony_activities.all().delete()
+        ceremony.start_date = "2024-01-01"
+        ceremony.end_date = "2024-01-01"
+        ceremony.title = "Ceremonia de grado"
+        ceremony.save()
+
+    return redirect('ceremony-plan')
