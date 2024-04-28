@@ -6,6 +6,8 @@ from myapp.models import Event
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
 
+from myapp.models import Notification
+
 @login_required
 def eventRegistration(request, eventRequest):
     event = Event(request.POST)
@@ -49,6 +51,12 @@ def finishEvent(request, evento_id):
     evento.save()
     message = f"Se ha finalizado el evento."
     messages.success(request, message)
+
+    #Enviar notificacion cuando se finalice un evento
+    message_notification = "Se ha finalizado un evento. Puedes ver los detalles en el historial de eventos"
+    notificacion = Notification.objects.create(message=message_notification)
+
+
 
     # Obtener el correo electrónico del usuario asociado al evento
     user_email = evento.usuario.email
