@@ -8,15 +8,15 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'lib/bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
 
-    <title>Historial de Registros</title>
+    <title>Eventos Finalizados</title>
     <link rel="stylesheet" href="{% static 'lib/bootstrap-5.3.3-dist/css/bootstrap.css' %}">
 </head>
 
 <body>
-    {% include 'layouts/sidebar3.html' %}
+    {% include 'layouts/sidebar1.html' %}
     {% block content %}
-    <div class="container mt-5" style="background-color: #93b8f0; border-radius: 10px; padding: 20px;">
-        <h1 class="text-center">Lista de Solicitudes</h1>
+    <div class="main container mt-5" style="margin-left: 75px; background-color: #93b8f0; border-radius: 10px; padding: 20px;">
+        <h1 class="text-center">Historial de Eventos Finalizados</h1>
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead>
@@ -30,7 +30,8 @@
                     <th>Alimentación</th>
                     <th>Transporte</th>
                     <th>Profesor</th>
-                    <th>Estado de Solicitud</th>
+                    <th>Extras</th>
+                    <th>Estado del evento</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -42,11 +43,17 @@
                     <td>{{ evento.fecha_inicio }}</td>
                     <td>{{ evento.fecha_fin }}</td>
                     <td>{{ evento.presupuesto }}</td>
-                    <td>{{ evento.alimentacion }}</td>
-                    <td>{{ evento.transporte }}</td>
+                    <td><input class="form-check-input" type="checkbox" name="estado_alimentacion" {% if evento.estado_alimentacion %} checked {% endif %} disabled>
+                        {{ evento.alimentacion }}</td>
+                    <td><input class="form-check-input" type="checkbox" name="estado_alimentacion" {% if evento.estado_transporte %} checked {% endif %} disabled>
+                        {{ evento.transporte }}</td>
                     <td>{{ evento.profesor }}</td>
+                    <td><input class="form-check-input" type="checkbox" name="estado_alimentacion" {% if evento.estado_extras %} checked {% endif %} disabled>
+                        {{ evento.extra }}</td>
                     <td>{{ evento.estado_solicitud }}</td>
-
+                    <script>
+                        console.log("{{evento}}")
+                    </script>
                 </tr>
                 {% endfor %}
                 </tbody>

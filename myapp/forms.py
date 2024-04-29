@@ -9,6 +9,10 @@ class EventRequestForm(forms.ModelForm):
     class Meta:
         model = EventRequest
         fields = ['lugar', 'fecha_inicio', 'fecha_fin', 'presupuesto', 'alimentacion', 'transporte', 'profesor']
+        widgets = {
+            'fecha_inicio': forms.DateInput(attrs={'class': 'form-control datepicker'}),
+            'fecha_fin': forms.DateInput(attrs={'class': 'form-control datepicker'}),
+        }
 
     def clean(self):
         cleaned_data = super().clean()

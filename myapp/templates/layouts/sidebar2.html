@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar</title>
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'lib/bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styleBarraProceso.css' %}">
+</head>
+
+<body>
+    
+        <aside id="sidebar">
+            <div class="d-flex">
+                <button class="toggle-btn" type="button" id="logo_button">
+                    <i class="lni lni-grid-alt"></i>
+                </button>
+                <div class="sidebar-logo">
+                    <a href="#">Freya</a>
+                </div>
+            </div>
+            <ul class="sidebar-nav">
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed has-dropdown eventos-dropdown" data-bs-toggle="collapse" data-bs-target="#eventos" aria-expanded="false" aria-controls="eventos">
+                        <i class="lni lni-travel"></i>
+                        <span>Eventos</span>
+                    </a>
+                    <ul id="eventos" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="/event-list-apoyo" class="sidebar-link">Gestor de eventos</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/finish-event-apoyo" class="sidebar-link">Eventos finalizados</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <i class="lni lni-calendar"></i>
+                        <span>Calendario (en desarrollo)</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <i class="lni lni-alarm"></i>
+                        <span>Notification</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="/logout" class="sidebar-link">
+                    <i class="lni lni-exit"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <div id="notification_box" class="notification_box">
+            <div class="ittem_notification_box"><span>Mensage</span></div>
+            <div class="ittem_notification_box"><span>Mensage</span></div>
+            <div class="ittem_notification_box"><span>Mensage</span></div>
+            <div class="ittem_notification_box"><span>Mensage</span></div>
+            <div class="ittem_notification_box"><span>Mensage</span></div>
+            <div class="ittem_notification_box"><span>Mensage</span></div>
+            <div class="ittem_notification_box"><span>Mensage</span></div>
+            <div class="ittem_notification_box"><span>Mensage</span></div>
+            <div class="ittem_notification_box"><span>Mensage</span></div>
+
+        </div>
+
+        <div id="content", name="content", class="main">
+            {% block content %}
+            {% endblock %}
+        </div>
+        
+    
+    <script src="{% static 'lib/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/sidebar.js' %}"></script>
+</body>
+
+</html>

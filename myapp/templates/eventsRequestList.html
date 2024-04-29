@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'lib/bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
     <title>Lista de Solicitudes</title>
     <link rel="stylesheet" href="{% static 'lib/bootstrap-5.3.3-dist/css/bootstrap.css' %}">
@@ -108,8 +109,8 @@
 </head>
 
 <body>
-    {% include 'layouts/header1.html' %}
-    <div class="container mt-5">
+    {% include 'layouts/sidebar1.html' with notificaciones=notificaciones%}
+    <div class="main container mt-5">
         <!-- Mostrar notificaciones cuando se crea un evento -->
         {% if messages %}
         <div class="row">
@@ -163,9 +164,9 @@
                                 {% csrf_token %}
                                 <input type="hidden" name="evento_id" value="{{ evento.id }}">
                                 <select name="estado_solicitud" class="form-control">
-                                    <option value="pendiente">Pendiente</option>
-                                    <option value="aprobada">Aprobada</option>
-                                    <option value="rechazada">Rechazada</option>
+                                    <option value="Pendiente">Pendiente</option>
+                                    <option value="Aprobada">Aprobar</option>
+                                    <option value="Rechazada">Rechazar</option>
                                 </select>
                                 <button type="submit" class="btn btn-primary mt-2">Actualizar</button>
                             </form>

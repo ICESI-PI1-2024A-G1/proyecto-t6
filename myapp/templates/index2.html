@@ -10,12 +10,12 @@
 </head>
 
 <body>
-    {%include 'layouts/sidebar1.html' with notificaciones=notificaciones%}
+    {% include 'layouts/sidebar2.html' %}
     {% block content %}
     <div class="main">
         <h1>Bienvenido {% if first_name %}{{ first_name }}{% else %}Invitado{% endif %}</h1>
     </div>
-        {% endblock %}
+    {% endblock %}
 </body>
 
 </html>
