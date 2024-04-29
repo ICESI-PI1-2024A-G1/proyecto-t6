@@ -79,4 +79,5 @@ class Migration(migrations.Migration):
                 ('profesor', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='myapp.professor')),
             ],
         ),
+       
     ]
