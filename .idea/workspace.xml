@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b87eb3b8-f24c-4fc1-83b3-ae8a7ddfa754" name="Changes" comment="" />
+    <list default="true" id="b87eb3b8-f24c-4fc1-83b3-ae8a7ddfa754" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/templates/eventsList.html" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/templates/eventsList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/templates/eventsListApoyo.html" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/templates/eventsListApoyo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/templates/layouts/sidebar1.html" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/templates/layouts/sidebar1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapp/templates/layouts/sidebar2.html" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/templates/layouts/sidebar2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/settings.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,10 +22,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2fiMzDXZBxfDZkd2ulcr2TGDgFx" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -25,9 +34,10 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/function__notification",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "feature/event__checklist",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/User/Documents/proyecto-t6/myapp/templates",
+    "last_opened_file_path": "C:/Users/User/Documents/Nueva carpeta",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -57,7 +67,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1714279713107</updated>
-      <workItem from="1714279714027" duration="10652000" />
+      <workItem from="1714279714027" duration="12056000" />
+      <workItem from="1714340133196" duration="5775000" />
     </task>
     <servers />
   </component>
