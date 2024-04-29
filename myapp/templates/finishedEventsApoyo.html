@@ -10,6 +10,7 @@
 
     <title>Eventos Finalizados</title>
     <link rel="stylesheet" href="{% static 'lib/bootstrap-5.3.3-dist/css/bootstrap.css' %}">
+
 </head>
 
 <body>
@@ -51,16 +52,13 @@
                     <td><input class="form-check-input" type="checkbox" name="estado_alimentacion" {% if evento.estado_extras %} checked {% endif %} disabled>
                         {{ evento.extra }}</td>
                     <td>{{ evento.estado_solicitud }}</td>
-                    <script>
-                        console.log("{{evento}}")
-                    </script>
+
                 </tr>
                 {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
-
     {% endblock %}
 </body>
 

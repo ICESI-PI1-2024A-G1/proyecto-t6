@@ -1,7 +1,7 @@
 // Función para establecer el progreso del círculo
 function setProgress(eventId, percent) {
     const circle = document.querySelector(`#circle_${eventId} .progress-ring-circle`);
-    const radius = circle.r.baseVal.value;
+    const radius = circle.getAttribute('r'); // Usar getAttribute para obtener el valor del atributo
     const circumference = 2 * Math.PI * radius;
 
     const offset = circumference - (percent / 100) * circumference;
