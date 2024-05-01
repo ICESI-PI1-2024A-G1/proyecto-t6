@@ -50,15 +50,16 @@ class Event(models.Model):
 
 class Notification(models.Model):
     message = models.TextField()
+    url = models.CharField(null=True, max_length=200, blank=True)
 
-    def __str__(self):
+    def _str_(self):
         return self.message
 
 
 class Ceremony(models.Model):
     title = models.CharField(max_length=200, default="Ceremonia de grado")
-    start_date = models.DateField()
-    end_date = models.DateField()
+    start_date = models.DateField(default="2024-01-01")
+    end_date = models.DateField(default="2024-01-01")
 
     def __str__(self):
         return self.title
@@ -68,7 +69,7 @@ class CeremonyActivity(models.Model):
     title = models.CharField(max_length=200)
     completed = models.BooleanField(default=False)
     ceremony = models.ForeignKey(
-        Ceremony, on_delete=models.CASCADE, related_name='ceremony_activities')
+        Ceremony, null=True, default=1, on_delete=models.CASCADE, related_name='ceremony_activities')
 
     def __str__(self):
         return self.title
