@@ -84,6 +84,31 @@ def eventRegistry(request):
 
 
 @login_required
+def reset_ceremony(request):
+    if request.method == 'POST':
+        # Eliminar todas las actividades de la ceremonia
+        CeremonyActivity.objects.all().delete()
+
+        # Reiniciar la ceremonia si existe o crear una nueva
+        ceremony, created = Ceremony.objects.get_or_create(
+            title="Ceremonia de grado",
+            defaults={
+                'start_date': "2024-01-01",
+                'end_date': "2024-01-01",
+            }
+        )
+
+        ceremony.start_date = "2024-01-01"
+        ceremony.end_date = "2024-01-01"
+        ceremony.save()
+
+        messages.success(request, 'Ceremony reset successfully.')
+        return redirect('ceremony-plan')
+
+    return redirect('ceremony-plan')
+
+
+@login_required
 def ceremonyPlan(request):
     # Verificar si existe una ceremonia activa
     ceremony = Ceremony.objects.first()
@@ -91,6 +116,8 @@ def ceremonyPlan(request):
     # Si no hay ninguna ceremonia, crear una automáticamente
     if not ceremony:
         reset_ceremony(request)
+        ceremony_activities = CeremonyActivity.objects.all
+        form = CeremonyActivityForm(request.POST)
 
     # Obtener las actividades de la ceremonia
     else:
@@ -125,22 +152,6 @@ def finish_activity(request, activity_id):
         activity = CeremonyActivity.objects.get(id=activity_id)
         activity.completed = True
         activity.save()
-
-    return redirect('ceremony-plan')
-
-
-@login_required
-def reset_ceremony(request):
-
-    if request.method == 'POST':
-
-        ceremony = get_object_or_404(Ceremony)
-
-        CeremonyActivity.objects.all().delete()
-        ceremony.start_date = "2024-01-01"
-        ceremony.end_date = "2024-01-01"
-        ceremony.title = "Ceremonia de grado"
-        ceremony.save()
 
     return redirect('ceremony-plan')
 
