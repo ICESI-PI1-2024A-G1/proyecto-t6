@@ -5,14 +5,11 @@ from myapp.models import Event
 
 class cortex(ListView):
 
-
     model = Event
     template_name = "index1.html"
 
-
     def home(request):
         return render(request, "home.html")
-
 
     def index(request):
         group = request.user.groups.values_list("id", flat=True).first()
@@ -27,7 +24,6 @@ class cortex(ListView):
             return render(request, "index2.html", {'first_name': firstName})
 
         return render(request, "index3.html", {'first_name': firstName})
-
 
     def get_queryset(self):
         """

@@ -2,10 +2,12 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import render, redirect
 
+
 def academicMembersLogin(request):
     if request.method == "GET":
         return render(
-            request, "loginAcademicCommunity.html", {"form": AuthenticationForm}
+            request, "loginAcademicCommunity.html", {
+                "form": AuthenticationForm}
         )
     else:
         user = authenticate(
@@ -25,7 +27,7 @@ def academicMembersLogin(request):
         else:
             group = user.groups.values_list('id', flat=True).first()
             print("ID del usuario:", group)
-            if (group==3 or group==4):
+            if (group == 3 or group == 4):
                 login(request, user)
                 return redirect("index")
 
