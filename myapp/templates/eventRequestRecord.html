@@ -17,6 +17,19 @@
     {% block content %}
     <div class="main container mt-5" style="margin-left: 75px; background-color: #93b8f0; border-radius: 10px; padding: 20px;">
         <h1 class="text-center">Historial de Solicitudes</h1>
+        <form method="GET">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="Buscar por ID, Título o Presupuesto">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                    <select name="filter_by" class="form-control">
+                    <option value="id">ID</option>
+                    <option value="titulo">Título</option>
+                    <option value="presupuesto">Presupuesto</option>
+                </select>
+              </div>
+            </div>
+        </form>
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead>

@@ -31,7 +31,18 @@ def eventRegistration(request, eventRequest):
 
 @login_required
 def eventList(request):
-    eventos = Event.objects.filter(estado_solicitud='En curso')
+    search_term = request.GET.get('search', '')
+    filter_by = request.GET.get('filter_by', 'id')
+    if search_term:
+        if filter_by == 'id':
+            eventos = Event.objects.filter(id__icontains=search_term, estado_solicitud='En curso')
+        elif filter_by == 'titulo':
+            eventos = Event.objects.filter(titulo__icontains=search_term, estado_solicitud='En curso')
+        elif filter_by == 'presupuesto':
+            eventos = Event.objects.filter(presupuesto__icontains=search_term, estado_solicitud='En curso')
+    else:
+        eventos = Event.objects.filter(estado_solicitud='En curso')
+
     return render(request, 'eventsList.html', {'eventos': eventos})
 
 
@@ -81,7 +92,18 @@ def finishEvent(request, evento_id):
 @login_required
 def eventRegistry(request):
     user = request.user
-    events = Event.objects.filter(estado_solicitud='Finalizado')
+    search_term = request.GET.get('search', '')
+    filter_by = request.GET.get('filter_by', 'id')
+    if search_term:
+        if filter_by == 'id':
+            events = Event.objects.filter(id__icontains=search_term, estado_solicitud='Finalizado')
+        elif filter_by == 'titulo':
+            events = Event.objects.filter(titulo__icontains=search_term, estado_solicitud='Finalizado')
+        elif filter_by == 'presupuesto':
+            events = Event.objects.filter(presupuesto__icontains=search_term, estado_solicitud='Finalizado')
+    else:
+        events = Event.objects.filter(estado_solicitud='Finalizado')
+    
     return render(request, 'finishedEvents.html', {'eventos': events})
 
 

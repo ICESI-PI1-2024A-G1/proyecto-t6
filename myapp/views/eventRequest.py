@@ -43,18 +43,63 @@ def eventRequestRecord(request):
     user = request.user
     group = user.groups.values_list('id', flat=True).first()
 
+    search_term = request.GET.get('search', '')
+    filter_by = request.GET.get('filter_by', 'id')  # Default to ID
+    
+    # Filter based on search term and filter attribute
+    if search_term:
+        if filter_by == 'id':
+            eventos = EventRequest.objects.filter(id__icontains=search_term, estado_solicitud='Pendiente')
+        elif filter_by == 'titulo':
+            eventos = EventRequest.objects.filter(titulo__icontains=search_term, estado_solicitud='Pendiente')
+        elif filter_by == 'presupuesto':
+            eventos = EventRequest.objects.filter(presupuesto__icontains=search_term, estado_solicitud='Pendiente')
+    else:
+        eventos = EventRequest.objects.filter(estado_solicitud='Pendiente')
+
     if group in [3, 4]:
-        events = EventRequest.objects.filter(usuario_id=user)
+        if search_term:
+            if filter_by == 'id':
+                events = EventRequest.objects.filter(id__icontains=search_term, usuario_id=user)
+            elif filter_by == 'titulo':
+                events = EventRequest.objects.filter(titulo__icontains=search_term, usuario_id=user)
+            elif filter_by == 'presupuesto':
+                events = EventRequest.objects.filter(presupuesto__icontains=search_term, usuario_id=user)
+        else:
+            events = EventRequest.objects.filter(usuario_id=user)
+        
         return render(request, 'eventRequestRecord_2.html', {'eventos': events})
     else:
-        events = EventRequest.objects.filter(Q(estado_solicitud='Aprobada') | Q(estado_solicitud='Rechazada'))
+        if search_term:
+            if filter_by == 'id':
+                events = EventRequest.objects.filter(Q(estado_solicitud='Aprobada') | Q(estado_solicitud='Rechazada'), id__icontains=search_term)
+            elif filter_by == 'titulo':
+                events = EventRequest.objects.filter(Q(estado_solicitud='Aprobada') | Q(estado_solicitud='Rechazada'), titulo__icontains=search_term)
+            elif filter_by == 'presupuesto':
+                events = EventRequest.objects.filter(Q(estado_solicitud='Aprobada') | Q(estado_solicitud='Rechazada'), presupuesto__icontains=search_term)
+        else:
+            events = EventRequest.objects.filter(Q(estado_solicitud='Aprobada') | Q(estado_solicitud='Rechazada'))
+        
         return render(request, 'eventRequestRecord.html', {'eventos': events})
     
 @login_required
 def eventRequestList(request):
     user = request.user
     group = user.groups.values_list('id', flat=True).first()
-    eventos = EventRequest.objects.filter(estado_solicitud='Pendiente')
+    search_term = request.GET.get('search', '')
+    filter_by = request.GET.get('filter_by', 'id')  # Default to ID
+    
+    # Filter based on search term and filter attribute
+    if search_term:
+        if filter_by == 'id':
+            eventos = EventRequest.objects.filter(id__icontains=search_term, estado_solicitud='Pendiente')
+        elif filter_by == 'titulo':
+            eventos = EventRequest.objects.filter(titulo__icontains=search_term, estado_solicitud='Pendiente')
+        elif filter_by == 'presupuesto':
+            eventos = EventRequest.objects.filter(presupuesto__icontains=search_term, estado_solicitud='Pendiente')
+    else:
+        eventos = EventRequest.objects.filter(estado_solicitud='Pendiente')
+    
     if request.method == "POST":
         form = EstadoSolicitudForm(request.POST)
         print(request.POST)
