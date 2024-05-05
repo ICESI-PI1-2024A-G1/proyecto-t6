@@ -14,6 +14,8 @@ class Professor(models.Model):
 
 class EventRequest(models.Model):
     usuario = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    titulo = models.CharField(max_length=200)
+    descripcion = models.CharField(max_length=300)
     lugar = models.CharField(max_length=200)
     fecha_inicio = models.DateField()
     fecha_fin = models.DateField()
@@ -32,6 +34,8 @@ class EventRequest(models.Model):
 
 class Event(models.Model):
     usuario = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    titulo = models.CharField(max_length=200)
+    descripcion = models.CharField(max_length=300)
     lugar = models.CharField(max_length=200)
     fecha_inicio = models.DateField()
     fecha_fin = models.DateField()

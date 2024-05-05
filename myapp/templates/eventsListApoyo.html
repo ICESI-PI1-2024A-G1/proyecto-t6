@@ -24,6 +24,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Titulo</th>
                         <th>Lugar</th>
                         <th>Fecha de Inicio</th>
                         <th>Fecha de Fin</th>
@@ -42,6 +43,7 @@
                     <form method="post" action="{% url 'guardar_evento' %}">
                         {% csrf_token %}
                         <td>{{ event.id }}</td>
+                        <td data-bs-toggle="modal" data-bs-target="#descripcion{{ event.id }}">{{ event.titulo }}</td>
                         <td>{{ event.lugar }}</td>
                         <td>{{ event.fecha_inicio }}</td>
                         <td>{{ event.fecha_fin }}</td>
@@ -110,6 +112,23 @@
             </table>
         </div>
     </div>
+
+    {% for evento in eventos %}
+    <div class="modal fade" id="descripcion{{ evento.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Descripción de la solicitud</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{evento.descripcion}}
+                </div>
+            </div>
+        </div>
+    </div>   
+    {% endfor %}
 
     {% endblock %}
 

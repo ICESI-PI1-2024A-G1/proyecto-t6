@@ -16,6 +16,8 @@ def eventRegistration(request, eventRequest):
     event = Event(request.POST)
     event.id = eventRequest.id
     event.usuario = eventRequest.usuario
+    event.titulo = eventRequest.titulo
+    event.descripcion = eventRequest.descripcion
     event.lugar = eventRequest.lugar
     event.fecha_inicio = eventRequest.fecha_inicio
     event.fecha_fin = eventRequest.fecha_fin

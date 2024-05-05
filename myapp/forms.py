@@ -10,7 +10,7 @@ from .models import CeremonyActivity
 class EventRequestForm(forms.ModelForm):
     class Meta:
         model = EventRequest
-        fields = ['lugar', 'fecha_inicio', 'fecha_fin',
+        fields = ['titulo', 'descripcion', 'lugar', 'fecha_inicio', 'fecha_fin',
                   'presupuesto', 'alimentacion', 'transporte', 'profesor']
         widgets = {
             'fecha_inicio': forms.DateInput(attrs={'class': 'form-control datepicker'}),
