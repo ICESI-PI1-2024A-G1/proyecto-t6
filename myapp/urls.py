@@ -3,11 +3,9 @@ from .views import auth
 from .views import event
 from .views import eventRequest
 from .views import cortex
-from .views import calendar
 
 urlpatterns = [
     path('', cortex.home, name ='home'),
-    path('calendar/', calendar.as_view(), name = 'calendar'),
     path('academic-members-login/', auth.academicMembersLogin,
          name='academic-members-login'),
     path('ccsa-login/', auth.ccsaLogin, name='ccsa-login'),
