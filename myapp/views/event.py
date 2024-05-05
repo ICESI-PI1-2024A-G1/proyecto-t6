@@ -166,11 +166,14 @@ def guardar_evento(request):
         estado_transporte = request.POST.get('estado_transporte') == 'on'
         estado_extras = request.POST.get('estado_extras') == 'on'
 
+
         event = Event.objects.get(pk=event_id)
         event.estado_alimentacion = estado_alimentacion
         event.estado_transporte = estado_transporte
         event.estado_extras = estado_extras
         event.save()
+        print(estado_extras)
+
 
     # Redirige a la página que desees después de guardar
     if (request.user.groups.values_list("id", flat=True).first() == 2):

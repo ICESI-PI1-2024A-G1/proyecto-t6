@@ -48,6 +48,10 @@ class Event(models.Model):
         null=True, max_length=200, default='En curso')
     extra = models.CharField(blank=True, null=True, max_length=200)
 
+    estado_alimentacion = models.BooleanField(null=True, blank=True)
+    estado_transporte = models.BooleanField(null=True, blank=True)
+    estado_extras = models.BooleanField(null=True, blank=True)
+
     def __str__(self):
         return f'Usuario: {self.usuario}, Lugar: {self.lugar}, Fecha de inicio: {self.fecha_inicio}, Fecha de fin: {self.fecha_fin}, Presupuesto: {self.presupuesto}, Alimentación: {self.alimentacion}, Transporte: {self.transporte}, Profesor: {self.profesor}, Estado: {self.estado_solicitud}, Extra: {self.extra}'
 
