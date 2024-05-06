@@ -26,7 +26,7 @@ class TestEventRequestForm(TestCase):
         form = EventRequestForm(data=form_data)
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors['__all__'], [
-            'None of the fields can be empty.'])
+            'Ninguno de los campos puede estar vacío.'])
 
     def test_invalid_date_range(self):
         """
@@ -50,7 +50,7 @@ class TestEventRequestForm(TestCase):
         form = EventRequestForm(data=form_data)
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors['__all__'], [
-            'Start date cannot be after end date.'])
+            'La fecha de inicio no puede ser posterior a la fecha de fin.'])
 
     def test_negative_budget(self):
         """
@@ -73,7 +73,7 @@ class TestEventRequestForm(TestCase):
         form = EventRequestForm(data=form_data)
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors['__all__'], [
-            'Budget cannot be negative.'])
+            'El presupuesto no puede ser negativo.'])
 
     def test_valid_data(self):
         """

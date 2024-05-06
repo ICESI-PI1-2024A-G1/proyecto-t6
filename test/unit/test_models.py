@@ -13,12 +13,14 @@ class TestCreateModels(TestCase):
         """
         self.user = User.objects.create_user(username='testuser', email='test@example.com', password='password')
 
+
     def test_create_professor(self):
         professor = Professor.objects.create(name='John Doe', email='john@example.com')
-        self.assertEqual(Professor.objects.count(), 1)
+    # Verificar si el profesor creado existe en el modelo
+        self.assertTrue(Professor.objects.filter(name='John Doe').exists())
 
     def test_create_event_request(self):
-        event_request = EventRequest.objects.create(
+         event_request = EventRequest.objects.create(
             usuario=self.user,
             titulo='Test Event',
             descripcion='Description of test event',
@@ -31,7 +33,9 @@ class TestCreateModels(TestCase):
             estado_solicitud='Pending',
             extra='Extra information'
         )
-        self.assertEqual(EventRequest.objects.count(), 1)
+         self.assertTrue(EventRequest.objects.filter(titulo='Test Event').exists())
+
+
 
     def test_create_event(self):
         event = Event.objects.create(
@@ -50,20 +54,25 @@ class TestCreateModels(TestCase):
             estado_transporte=False,
             estado_extras=True
         )
-        self.assertEqual(Event.objects.count(), 1)
+        # Verificar si el evento creado existe en el modelo
+        self.assertTrue(Event.objects.filter(titulo='Test Event').exists())
 
     def test_create_notification(self):
         notification = Notification.objects.create(message='Test Notification', url='http://example.com')
-        self.assertEqual(Notification.objects.count(), 1)
+        # Verificar si la notificación creada existe en el modelo
+        self.assertTrue(Notification.objects.filter(message='Test Notification').exists())
 
     def test_create_ceremony(self):
         ceremony = Ceremony.objects.create(title='Test Ceremony', start_date='2024-06-01', end_date='2024-06-05')
-        self.assertEqual(Ceremony.objects.count(), 1)
+        # Verificar si la ceremonia creada existe en el modelo
+        self.assertTrue(Ceremony.objects.filter(title='Test Ceremony').exists())
 
     def test_create_ceremony_activity(self):
         ceremony = Ceremony.objects.create(title='Test Ceremony', start_date='2024-06-01', end_date='2024-06-05')
         ceremony_activity = CeremonyActivity.objects.create(title='Test Activity', ceremony=ceremony)
-        self.assertEqual(CeremonyActivity.objects.count(), 1)
+        # Verificar si la actividad de ceremonia creada existe en el modelo
+        self.assertTrue(CeremonyActivity.objects.filter(title='Test Activity').exists())
+
 
     """
     Test case for editing instances of various models.

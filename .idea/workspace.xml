@@ -6,17 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b87eb3b8-f24c-4fc1-83b3-ae8a7ddfa754" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myapp/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myapp/views/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/views/auth.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myapp/views/cortex.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/views/cortex.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myapp/views/event.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/views/event.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myapp/views/eventRequest.py" beforeDir="false" afterPath="$PROJECT_DIR$/myapp/views/eventRequest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test_event_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/test_event_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test_forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/test_forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test_login_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/test_login_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test_models.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/test_models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test_user.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/test_user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/unit/test_forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/unit/test_forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/unit/test_models.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/unit/test_models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +38,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyIntegratedToolsModulesConfigurable",
+    "settings.editor.selected.configurable": "preferences.sourceCode.Python",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -193,7 +184,7 @@
       <workItem from="1714399901210" duration="1826000" />
       <workItem from="1714442877947" duration="10000" />
       <workItem from="1714894280120" duration="13067000" />
-      <workItem from="1714959800547" duration="1557000" />
+      <workItem from="1714959800547" duration="4122000" />
     </task>
     <servers />
   </component>
