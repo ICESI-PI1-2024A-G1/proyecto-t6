@@ -1,13 +1,13 @@
 from django import forms
-from .models import EventRequest
-from django import forms
-from .models import EventRequest
+from .models import EventRequest, CeremonyActivity
 from django.core.exceptions import ValidationError
-import datetime
-from .models import CeremonyActivity
 
 
 class EventRequestForm(forms.ModelForm):
+    """
+    Form for creating or updating event requests.
+    """
+
     class Meta:
         model = EventRequest
         fields = ['titulo', 'descripcion', 'lugar', 'fecha_inicio', 'fecha_fin',
@@ -18,6 +18,9 @@ class EventRequestForm(forms.ModelForm):
         }
 
     def clean(self):
+        """
+        Custom form validation.
+        """
         cleaned_data = super().clean()
         lugar = cleaned_data.get('lugar')
         fecha_inicio = cleaned_data.get('fecha_inicio')
@@ -39,12 +42,18 @@ class EventRequestForm(forms.ModelForm):
 
 
 class EstadoSolicitudForm(forms.Form):
+    """
+    Form for updating the status of event requests.
+    """
     evento_id = forms.IntegerField(widget=forms.HiddenInput)
     estado_solicitud = forms.CharField(label='Estado de la Solicitud', widget=forms.Select(
         choices=[('pendiente', 'Pendiente'), ('aprobada', 'Aprobada'), ('rechazada', 'Rechazada')]))
 
 
 class CeremonyActivityForm(forms.ModelForm):
+    """
+    Form for creating or updating ceremony activities.
+    """
     class Meta:
         model = CeremonyActivity
         fields = ['title']

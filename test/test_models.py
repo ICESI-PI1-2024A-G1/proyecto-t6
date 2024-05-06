@@ -4,7 +4,13 @@ from myapp.models import Professor, EventRequest, Event, Notification, Ceremony,
 
 
 class TestCreateModels(TestCase):
+    """
+    Test case for creating instances of various models.
+    """
     def setUp(self):
+        """
+        Set up initial data for each test method.
+        """
         self.user = User.objects.create_user(username='testuser', email='test@example.com', password='password')
 
     def test_create_professor(self):
@@ -59,9 +65,14 @@ class TestCreateModels(TestCase):
         ceremony_activity = CeremonyActivity.objects.create(title='Test Activity', ceremony=ceremony)
         self.assertEqual(CeremonyActivity.objects.count(), 1)
 
+    """
+    Test case for editing instances of various models.
+    """
 
-class TestEditModels(TestCase):
     def setUp(self):
+        """
+       Set up initial data for each test method.
+       """
         self.user = User.objects.create_user(username='testuser', email='test@example.com', password='password')
         self.professor = Professor.objects.create(name='John Doe', email='john@example.com')
         self.event_request = EventRequest.objects.create(
@@ -128,8 +139,13 @@ class TestEditModels(TestCase):
         self.assertEqual(CeremonyActivity.objects.get(pk=self.ceremony_activity.pk).title, 'Edited Test Activity')
 
 
-class TestDeleteModels(TestCase):
+    """
+    Test case for deleting instances of various models.
+    """
     def setUp(self):
+        """
+        Set up initial data for each test method.
+        """
         self.user = User.objects.create_user(username='testuser', email='test@example.com', password='password')
         self.professor = Professor.objects.create(name='John Doe', email='john@example.com')
         self.event_request = EventRequest.objects.create(
