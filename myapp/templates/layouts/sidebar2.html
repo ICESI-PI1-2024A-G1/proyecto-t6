@@ -10,65 +10,6 @@
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link rel="stylesheet" href="{% static 'lib/bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
-    <style>
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 40px;
-            height: 20px;
-            margin-left: 10px;
-            vertical-align: middle;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            -webkit-transition: .4s;
-            transition: .4s;
-            border-radius: 34px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 16px;
-            width: 16px;
-            left: 2px;
-            bottom: 2px;
-            background-color: white;
-            -webkit-transition: .4s;
-            transition: .4s;
-            border-radius: 50%;
-        }
-
-        input:checked+.slider {
-            background-color: #2196F3;
-        }
-
-        input:focus+.slider {
-            box-shadow: 0 0 1px #2196F3;
-        }
-
-        input:checked+.slider:before {
-            -webkit-transform: translateX(20px);
-            -ms-transform: translateX(20px);
-            transform: translateX(20px);
-        }
-
-        /* Rounded sliders */
-        .slider.round {
-            border-radius: 34px;
-        }
-
-        .slider.round:before {
-            border-radius: 50%;
-        }
-    </style>
 </head>
 
 <body>
@@ -97,26 +38,11 @@
                         </li>
                     </ul>
                 </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-calendar"></i>
-                        <span>Calendario (en desarrollo)</span>
-                    </a>
-                </li>
                 <li class="sidebar-item" id="notification">
                     <a href="#" class="sidebar-link">
                         <i class="lni lni-alarm"></i>
                         <span>Notification</span>
                     </a>
-                </li>
-                <li class="sidebar-item" id="ceremony">
-                    <a href="#" class="sidebar-link">
-                        <span>Modo Ceremonia</span>
-                    </a>
-                    <label class="switch">
-                        <input type="checkbox" id="ceremony-switch">
-                        <span class="slider round"></span>
-                    </label>
                 </li>
             </ul>
             <div class="sidebar-footer">
