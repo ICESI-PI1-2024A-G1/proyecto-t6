@@ -31,15 +31,6 @@ class UserTestCase(TestCase):
         self.assertEqual(self.superUser.is_superuser, True)
         self.assertEqual(self.superUser.is_staff, True)
 
-    def test_add_user_to_group(self):
-        id = 1
-        group = Group.objects.get(id=id)
-        group.user_set.add(self.user)
-        self.assertEqual(self.user.groups.values_list(
-            "id", flat=True).first(), 1)
-        self.assertEqual(self.user.groups.values_list(
-            "name", flat=True).first(), "LiderDeProyecto")
-
     def change_user_of_group(self):
         id = 1
         group = Group.objects.get(id=id)

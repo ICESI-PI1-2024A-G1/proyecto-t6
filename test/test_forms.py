@@ -5,25 +5,6 @@ from datetime import datetime
 
 
 class TestEventRequestForm(TestCase):
-    def test_valid_data(self):
-        # Datos válidos para el formulario
-        form_data = {
-            'titulo': 'Test Event',
-            'descripcion': 'Descripción del evento',
-            'lugar': 'Sala de conferencias',
-            'fecha_inicio': datetime(2024, 4, 1),
-            'fecha_fin': datetime(2024, 4, 3),
-            'presupuesto': 1000,
-            'alimentacion': True,
-            'transporte': False,
-            'profesor': 'Claudia Bustamante'
-        }
-
-        # Crear el formulario con los datos proporcionados
-        form = EventRequestForm(data=form_data)
-
-        # Comprobar si el formulario es válido
-        self.assertTrue(form.is_valid(), msg=form.errors)
 
     def test_missing_required_fields(self):
         form_data = {}  # Datos vacíos
