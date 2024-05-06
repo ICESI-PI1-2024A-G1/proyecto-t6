@@ -1,0 +1,17 @@
+/* perfil_3.css */
+
+.profile-info {
+    text-align: left;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.profile-info img {
+    width: 30%;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.profile-info p {
+    margin-bottom: 10px;
+}

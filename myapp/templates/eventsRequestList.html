@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'lib/bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
     <title>Lista de Solicitudes</title>
     <link rel="stylesheet" href="{% static 'lib/bootstrap-5.3.3-dist/css/bootstrap.css' %}">
@@ -108,8 +109,8 @@
 </head>
 
 <body>
-    {% include 'layouts/header1.html' %}
-    <div class="container mt-5">
+    {% include 'layouts/sidebar1.html' with notificaciones=notificaciones%}
+    <div class="main container mt-5">
         <!-- Mostrar notificaciones cuando se crea un evento -->
         {% if messages %}
         <div class="row">
@@ -127,11 +128,25 @@
 
     <div class="container mt-5" style="background-color: #f5f5f5; border-radius: 10px; padding: 20px;">
         <h1 class="text-center">Lista de Solicitudes</h1>
+        <form method="GET">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="Buscar por ID, Título o Presupuesto">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                    <select name="filter_by" class="form-control">
+                    <option value="id">ID</option>
+                    <option value="titulo">Título</option>
+                    <option value="presupuesto">Presupuesto</option>
+                </select>
+              </div>
+            </div>
+        </form>
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Titulo</th>
                         <th>Usuario</th>
                         <th>Lugar</th>
                         <th>Fecha de Inicio</th>
@@ -149,6 +164,7 @@
                     {% if evento.estado_solicitud != "aprobada" and evento.estado_solicitud != "rechazada" %}
                     <tr>
                         <td>{{ evento.id }}</td>
+                        <td data-bs-toggle="modal" data-bs-target="#descripcion{{ evento.id }}">{{ evento.titulo }}</td>
                         <td>{{ evento.usuario }}</td>
                         <td>{{ evento.lugar }}</td>
                         <td>{{ evento.fecha_inicio }}</td>
@@ -163,9 +179,9 @@
                                 {% csrf_token %}
                                 <input type="hidden" name="evento_id" value="{{ evento.id }}">
                                 <select name="estado_solicitud" class="form-control">
-                                    <option value="pendiente">Pendiente</option>
-                                    <option value="aprobada">Aprobada</option>
-                                    <option value="rechazada">Rechazada</option>
+                                    <option value="Pendiente">Pendiente</option>
+                                    <option value="Aprobada">Aprobar</option>
+                                    <option value="Rechazada">Rechazar</option>
                                 </select>
                                 <button type="submit" class="btn btn-primary mt-2">Actualizar</button>
                             </form>
@@ -177,6 +193,22 @@
             </table>
         </div>
     </div>
+    {% for evento in eventos %}
+    <div class="modal fade" id="descripcion{{ evento.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Descripción de la solicitud</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{evento.descripcion}}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 
 </body>
 

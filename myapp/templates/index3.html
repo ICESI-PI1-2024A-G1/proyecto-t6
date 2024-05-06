@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,11 +6,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Freya</title>
-</head>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/perfil_3.css' %}">
 
 <body>
-    {% extends 'layouts/header3.html' %}
-    {% block content %}<h1>BBienvenido {% if first_name %}{{ first_name }}{% else %}Invitado{% endif %}</h1>
+    {% include 'layouts/sidebar3.html' %}
+    {% block content %}
+    <div class="main">
+        <h1>Bienvenido {% if first_name %}{{ first_name }}{% else %}Invitado{% endif %}</h1>
+        <div class="profile-info">
+            <img src="{% static 'img/user-icon-3.jpg' %}" width="25%" alt="Profile Picture">
+            <p>Nombre: {{ user.get_full_name }}</p>
+            <p>ID: {{ user.username }}</p>
+            <p>Rol: {{"Miembro académico"}}</p>
+        </div>
+    </div>
     {% endblock %}
 </body>
 
