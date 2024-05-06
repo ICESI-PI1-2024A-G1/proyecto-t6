@@ -20,23 +20,25 @@
                     <i class="lni lni-grid-alt"></i>
                 </button>
                 <div class="sidebar-logo">
-                    <a href="#">Freya</a>
+                    <a href="/index">Freya</a>
                 </div>
             </div>
             <ul class="sidebar-nav">
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                    <a href="#" class="sidebar-link collapsed has-dropdown eventos-dropdown" data-bs-toggle="collapse" data-bs-target="#eventos" aria-expanded="false" aria-controls="eventos">
                         <i class="lni lni-travel"></i>
-                        <span>Gestor de eventos (en desarrollo)</span>
+                        <span>Eventos</span>
                     </a>
+                    <ul id="eventos" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="/event-list-apoyo" class="sidebar-link">Gestor de eventos</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/finish-event-apoyo" class="sidebar-link">Eventos finalizados</a>
+                        </li>
+                    </ul>
                 </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-calendar"></i>
-                        <span>Calendario (en desarrollo)</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
+                <li class="sidebar-item" id="notification">
                     <a href="#" class="sidebar-link">
                         <i class="lni lni-alarm"></i>
                         <span>Notification</span>
@@ -51,18 +53,15 @@
             </div>
         </aside>
 
-        <div id="notification_box" class="notification_box">
-            <div class="ittem_notification_box"><span>Mensage</span></div>
-            <div class="ittem_notification_box"><span>Mensage</span></div>
-            <div class="ittem_notification_box"><span>Mensage</span></div>
-            <div class="ittem_notification_box"><span>Mensage</span></div>
-            <div class="ittem_notification_box"><span>Mensage</span></div>
-            <div class="ittem_notification_box"><span>Mensage</span></div>
-            <div class="ittem_notification_box"><span>Mensage</span></div>
-            <div class="ittem_notification_box"><span>Mensage</span></div>
-            <div class="ittem_notification_box"><span>Mensage</span></div>
+            <div id="notification_box" class="notification_box">
+                {% for notificacion in notificaciones %}
+                <div class="ittem_notification_box">
+                    <a href="{{notificacion.url}}"><span>{{ notificacion.message }}</span></a>
+                </div>
+                {% endfor %}
 
-        </div>
+            </div>
+
 
         <div id="content", name="content", class="main">
             {% block content %}
@@ -72,6 +71,16 @@
     
     <script src="{% static 'lib/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/sidebar.js' %}"></script>
+    <script>
+        document.getElementById('ceremony-switch').addEventListener('change', function () {
+            if (this.checked) {
+                window.location.href = '/ceremony-plan';
+            }
+            else{
+                window.location.href = '/index';
+            }
+        });
+    </script>
 </body>
 
 </html>

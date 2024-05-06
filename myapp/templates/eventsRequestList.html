@@ -128,11 +128,25 @@
 
     <div class="container mt-5" style="background-color: #f5f5f5; border-radius: 10px; padding: 20px;">
         <h1 class="text-center">Lista de Solicitudes</h1>
+        <form method="GET">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="Buscar por ID, Título o Presupuesto">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                    <select name="filter_by" class="form-control">
+                    <option value="id">ID</option>
+                    <option value="titulo">Título</option>
+                    <option value="presupuesto">Presupuesto</option>
+                </select>
+              </div>
+            </div>
+        </form>
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Titulo</th>
                         <th>Usuario</th>
                         <th>Lugar</th>
                         <th>Fecha de Inicio</th>
@@ -150,6 +164,7 @@
                     {% if evento.estado_solicitud != "aprobada" and evento.estado_solicitud != "rechazada" %}
                     <tr>
                         <td>{{ evento.id }}</td>
+                        <td data-bs-toggle="modal" data-bs-target="#descripcion{{ evento.id }}">{{ evento.titulo }}</td>
                         <td>{{ evento.usuario }}</td>
                         <td>{{ evento.lugar }}</td>
                         <td>{{ evento.fecha_inicio }}</td>
@@ -178,6 +193,22 @@
             </table>
         </div>
     </div>
+    {% for evento in eventos %}
+    <div class="modal fade" id="descripcion{{ evento.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Descripción de la solicitud</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{evento.descripcion}}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 
 </body>
 

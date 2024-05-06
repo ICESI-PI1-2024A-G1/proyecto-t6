@@ -7,15 +7,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Freya</title>
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/perfil_1.css' %}">
+
 </head>
 
 <body>
-    {%include 'layouts/sidebar1.html' with notificaciones=notificaciones%}
+    {% include 'layouts/sidebar1.html' with notificaciones=notificaciones %}
     {% block content %}
-    <div class="main">
+    <div class="main mitad-pantalla-i">
         <h1>Bienvenido {% if first_name %}{{ first_name }}{% else %}Invitado{% endif %}</h1>
+        <div class="profile-info">
+            <img src="{% static 'img/user-icon.jpg' %}" width="25%" alt="Profile Picture">
+            <p>Nombre: {{ user.get_full_name }}</p>
+            <p>ID: {{ user.username }}</p>
+            <p>Rol: {{"Lider de Proceso"}}</p>
+        </div>
     </div>
-        {% endblock %}
+    <div id='calendar' class="mitad-pantalla-d"></div>
+    {% endblock %}
+    {% block extrajs %}
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+          var calendarEl = document.getElementById('calendar');
+          var calendar = new FullCalendar.Calendar(calendarEl, { 
+            events: [
+                {% for event in object_list %}
+                    {
+                        title: "{{event.title}}",
+                        start: "{{event.start}}",
+                        end: "{{event.end}}",
+                        
+                    },
+                {% endfor %}
+            ]
+          });
+          calendar.render();
+          calendar.setOption('locale', 'es');
+        });
+  
+    </script>
+    {% endblock extrajs %}
 </body>
 
 </html>
