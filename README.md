@@ -20,11 +20,14 @@
 https://dev.to/achamorro_dev/conventional-commits-que-es-y-por-que-deberias-empezar-a-utilizarlo-23an
 
 > [!IMPORTANT]
-> Antes de hacer la ejecución del programa, por favor revisar el "requerimientos.txt" para instalar las librerías necesarias.
+> Antes de hacer la ejecución del programa, por favor revisar el *"requerimientos.txt"* para instalar las librerías necesarias con su respectivo comando y nombre mediante *"pip install <libreria_necesaria>"*
 >
 > 
 > Para las pruebas del programa, estas se dividen en unitarias y automáticas, ejecutar el comando respectivo para cada una, siendo estos en el orden mencionado:
+>
 > 
-> Para las unitarias: python .\manage.py test test/unit
-> Para las de selenium: python .\manage.py test test/functional
+> Para las unitarias: python *".\manage.py test test/unit"*
+>
+> 
+> Para las de selenium: python *".\manage.py test test/functional"*
 
