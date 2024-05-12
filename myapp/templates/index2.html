@@ -15,7 +15,7 @@
     {% include 'layouts/sidebar2.html' %}
     {% block content %}
     <div class="main">
-        <h1>Bienvenido {% if first_name %}{{ first_name }}{% else %}Invitado{% endif %}</h1>
+        <h1 class="welcome-message">Bienvenida {% if first_name %}{{ first_name }}{% else %}Invitado{% endif %}</h1>
         <div class="profile-info">
             <img src="{% static 'img/user-icon-2.png' %}" width="25%" alt="Profile Picture">
             <p>Nombre: {{ user.get_full_name }}</p>

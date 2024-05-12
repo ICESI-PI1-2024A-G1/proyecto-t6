@@ -10,12 +10,20 @@
 
     <title>Historial de Registros</title>
     <link rel="stylesheet" href="{% static 'lib/bootstrap-5.3.3-dist/css/bootstrap.css' %}">
+    <style>
+        body {
+            background-image: url("{%static 'img/manage_bg.png'%}");
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
 </head>
 
 <body>
     {% include 'layouts/sidebar1.html' %}
     {% block content %}
-    <div class="main container mt-5" style="margin-left: 75px; background-color: #93b8f0; border-radius: 10px; padding: 20px;">
+    <div class="main container mt-5"
+        style="margin-left: 75px; background-color: #d8e1ee; border-radius: 10px; padding: 20px; margin-left: 10%;">
         <h1 class="text-center">Historial de Solicitudes</h1>
         <form method="GET">
             <div class="input-group">
@@ -23,47 +31,47 @@
                 <div class="input-group-append">
                     <button type="submit" class="btn btn-primary">Buscar</button>
                     <select name="filter_by" class="form-control">
-                    <option value="id">ID</option>
-                    <option value="titulo">Título</option>
-                    <option value="presupuesto">Presupuesto</option>
-                </select>
-              </div>
+                        <option value="id">ID</option>
+                        <option value="titulo">Título</option>
+                        <option value="presupuesto">Presupuesto</option>
+                    </select>
+                </div>
             </div>
         </form>
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Titulo</th>
-                    <th>Usuario</th>
-                    <th>Lugar</th>
-                    <th>Fecha de Inicio</th>
-                    <th>Fecha de Fin</th>
-                    <th>Presupuesto</th>
-                    <th>Alimentación</th>
-                    <th>Transporte</th>
-                    <th>Profesor</th>
-                    <th>Estado de Solicitud</th>
-                </tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>Titulo</th>
+                        <th>Usuario</th>
+                        <th>Lugar</th>
+                        <th>Fecha de Inicio</th>
+                        <th>Fecha de Fin</th>
+                        <th>Presupuesto</th>
+                        <th>Alimentación</th>
+                        <th>Transporte</th>
+                        <th>Profesor</th>
+                        <th>Estado de Solicitud</th>
+                    </tr>
                 </thead>
                 <tbody>
-                {% for evento in eventos %}
-                <tr>
-                    <td>{{ evento.id }}</td>
-                    <td data-bs-toggle="modal" data-bs-target="#descripcion{{ evento.id }}">{{ evento.titulo }}</td>
-                    <td>{{ evento.usuario }}</td>
-                    <td>{{ evento.lugar }}</td>
-                    <td>{{ evento.fecha_inicio }}</td>
-                    <td>{{ evento.fecha_fin }}</td>
-                    <td>{{ evento.presupuesto }}</td>
-                    <td>{{ evento.alimentacion }}</td>
-                    <td>{{ evento.transporte }}</td>
-                    <td>{{ evento.profesor }}</td>
-                    <td>{{ evento.estado_solicitud }}</td>
+                    {% for evento in eventos %}
+                    <tr>
+                        <td>{{ evento.id }}</td>
+                        <td data-bs-toggle="modal" data-bs-target="#descripcion{{ evento.id }}">{{ evento.titulo }}</td>
+                        <td>{{ evento.usuario }}</td>
+                        <td>{{ evento.lugar }}</td>
+                        <td>{{ evento.fecha_inicio }}</td>
+                        <td>{{ evento.fecha_fin }}</td>
+                        <td>{{ evento.presupuesto }}</td>
+                        <td>{{ evento.alimentacion }}</td>
+                        <td>{{ evento.transporte }}</td>
+                        <td>{{ evento.profesor }}</td>
+                        <td>{{ evento.estado_solicitud }}</td>
 
-                </tr>
-                {% endfor %}
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

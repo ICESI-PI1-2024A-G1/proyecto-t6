@@ -7,28 +7,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'lib/bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ceremonias.css' %}">
     <title>Planificación de Ceremonias</title>
+    <style>
+        body {
+            background-image: url("{%static 'img/ceremonias_bg.png'%}");
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
 </head>
 
 <body>
     {% include 'layouts/sidebar1.html' %}
     {% block content %}
-    <div class="main container mt-5"
-        style="margin-left: 70px; background-color: #f0f0f0; border-radius: 10px; padding: 20px;">
-        <h1 class="text-center">Planificación de Ceremonias</h1>
-        <div class="container mt-5">
-            <div class="row">
-                <div class="col">
-                    <h2>{{ ceremony.title }}</h2>
+    <div class="main container mt-5">
+        <div class="ceremonias-container">
+            <h1 class="ceremonias-title">Planificación de Ceremonias</h1>
+            <div class="ceremony-info">
+                <div class="ceremony-details">
+                    <h2 class="ceremony-title">{{ ceremony.title }}</h2>
                     <p><strong>Fecha de Inicio:</strong> {{ ceremony.start_date }}</p>
                     <p><strong>Fecha de Fin:</strong> {{ ceremony.end_date }}</p>
                 </div>
-                <div class="col">
+                <div class="ceremony-actions">
                     <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
                         data-bs-target="#cambiarFechasModal">Cambiar Fechas</button>
                 </div>
             </div>
-            
             <hr>
             <h3>Actividades de la Ceremonia:</h3>
             <ul class="list-group">
@@ -46,10 +52,9 @@
                 </li>
                 {% endfor %}
             </ul>
-            <hr>            
-            
+            <hr>
             <h3>Agregar Nueva Actividad:</h3>
-            <form method="post">
+            <form method="post" class="ceremony-form">
                 {% csrf_token %}
                 <div class="mb-3">
                     <label for="id_title">Título:</label>
@@ -57,17 +62,13 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Agregar Actividad</button>
             </form>
-            
-            
-
             <hr>
-            <form method="post" action="{% url 'reset_ceremony' %}">
+            <form method="post" action="{% url 'reset_ceremony' %}" class="ceremony-form">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-danger">Reiniciar Ceremonia</button>
             </form>
         </div>
     </div>
-
 
     <div class="modal fade" id="cambiarFechasModal" tabindex="-1" aria-labelledby="cambiarFechasModalLabel"
         aria-hidden="true">
@@ -78,7 +79,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="post">
+                    <form method="post" class="ceremony-form">
                         {% csrf_token %}
                         <div class="mb-3">
                             <label for="fecha_inicio" class="form-label">Fecha de Inicio:</label>
