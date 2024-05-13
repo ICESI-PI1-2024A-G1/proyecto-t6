@@ -6,7 +6,14 @@ from django.shortcuts import redirect
 from myapp.views import academicMembersLogin, ccsaLogin, signout
 
 class AcademicMembersLoginTestCase(TestCase):
+    """
+    Test case for academic members login views.
+    """
     def setUp(self):
+        """
+        Set up test data including a test user, group, and request factory.
+        """
+
         # Crea un usuario de prueba
         self.user = User.objects.create_user(username='testuser', password='password')
         # Crea un grupo de prueba (grupo 3)
@@ -20,10 +27,16 @@ class AcademicMembersLoginTestCase(TestCase):
 
 
     def get_response(self, request):
+        """
+        Simulate the behavior of a middleware in Django.
+        """
         # Este método simula el comportamiento de un middleware en Django
         return None
 
     def test_get_request(self):
+        """
+        Test a GET request.
+        """
         # Simula una solicitud GET
         request = self.factory.get('/login/')
         response = academicMembersLogin(request)
@@ -32,11 +45,17 @@ class AcademicMembersLoginTestCase(TestCase):
 
 
     def add_session_to_request(self, request):
+        """
+        Add session to request.
+        """
         middleware = SessionMiddleware(self.get_response)
         middleware.process_request(request)
         request.session.save()
 
     def test_post_request_valid_credentials(self):
+        """
+        Test a POST request with valid credentials.
+        """
         # Crea un objeto de solicitud POST con credenciales válidas
         request = self.factory.post('/login/', {'username': 'testuser', 'password': 'password'})
 
@@ -52,6 +71,9 @@ class AcademicMembersLoginTestCase(TestCase):
 
 
     def test_post_request_invalid_credentials(self):
+        """
+       Test a POST request with invalid credentials.
+       """
         # Simula una solicitud POST con credenciales inválidas
         request = self.factory.post('/login/', {'username': 'testuser', 'password': 'wrongpassword'})
         response = academicMembersLogin(request)
@@ -59,6 +81,9 @@ class AcademicMembersLoginTestCase(TestCase):
         self.assertContains(response, 'Incorrect username or password!')
 
     def test_post_request_invalid_group(self):
+        """
+        Test a POST request with valid credentials but in an incorrect group.
+        """
         # Simula una solicitud POST con credenciales válidas pero en un grupo incorrecto
         # Quita el usuario del grupo 3 (grupo de prueba)
         self.user.groups.clear()
@@ -68,7 +93,13 @@ class AcademicMembersLoginTestCase(TestCase):
         self.assertContains(response, 'Credentials do not belong to an academic community member!')
 
 class AuthViewsTestCase(TestCase):
+    """
+    Test case for authentication views.
+    """
     def setUp(self):
+        """
+        Set up test data including test user, groups, and request factory.
+        """
     # Elimina todos los grupos existentes
         Group.objects.all().delete()
 
@@ -84,15 +115,24 @@ class AuthViewsTestCase(TestCase):
         self.factory = RequestFactory()
 
     def get_response(self, request):
+        """
+        Simulate the behavior of a middleware in Django.
+        """
         # Este método simula el comportamiento de un middleware en Django
         return None
 
     def add_session_to_request(self, request):
+        """
+        Add session to request.
+        """
         middleware = SessionMiddleware(self.get_response)
         middleware.process_request(request)
         request.session.save()
 
     def test_academic_members_login_get_request(self):
+        """
+        Test GET request for academicMembersLogin.
+        """
         # Prueba la solicitud GET para academicMembersLogin
         request = self.factory.get('/academic/login/')
         response = academicMembersLogin(request)
@@ -100,6 +140,9 @@ class AuthViewsTestCase(TestCase):
         self.assertContains(response, '<form')
 
     def test_academic_members_login_post_request_valid_credentials(self):
+        """
+        Test POST request with valid credentials for academicMembersLogin.
+        """
         # Prueba la solicitud POST con credenciales válidas para academicMembersLogin
         request = self.factory.post('/academic/login/', {'username': 'testuser', 'password': 'password'})
         user = authenticate(username='testuser', password='password')
@@ -109,6 +152,9 @@ class AuthViewsTestCase(TestCase):
         self.assertEqual(response.status_code, 200)  # Debería redirigir a la página de inicio
 
     def test_academic_members_login_post_request_invalid_credentials(self):
+        """
+        Test POST request with invalid credentials for academicMembersLogin.
+        """
         # Prueba la solicitud POST con credenciales inválidas para academicMembersLogin
         request = self.factory.post('/academic/login/', {'username': 'testuser', 'password': 'wrongpassword'})
         response = academicMembersLogin(request)
@@ -116,6 +162,9 @@ class AuthViewsTestCase(TestCase):
         self.assertContains(response, 'Incorrect username or password!')
 
     def test_academic_members_login_post_request_invalid_group(self):
+        """
+        Test POST request with valid credentials but user in an incorrect group for academicMembersLogin.
+        """
         # Prueba la solicitud POST con credenciales válidas pero usuario en un grupo incorrecto para academicMembersLogin
         request = self.factory.post('/academic/login/', {'username': 'testuser', 'password': 'password'})
         user = authenticate(username='testuser', password='password')
@@ -126,6 +175,9 @@ class AuthViewsTestCase(TestCase):
         self.assertContains(response, 'Credentials do not belong to an academic community member!')
 
     def test_ccsa_login_get_request(self):
+        """
+       Test GET request for ccsaLogin.
+       """
         # Prueba la solicitud GET para ccsaLogin
         request = self.factory.get('/ccsa/login/')
         response = ccsaLogin(request)
@@ -133,6 +185,9 @@ class AuthViewsTestCase(TestCase):
         self.assertContains(response, '<form')
 
     def test_ccsa_login_post_request_valid_credentials(self):
+        """
+        Test POST request with valid credentials for ccsaLogin.
+        """
         # Prueba la solicitud POST con credenciales válidas para ccsaLogin
         request = self.factory.post('/ccsa/login/', {'username': 'testuser', 'password': 'password'})
         user = authenticate(username='testuser', password='password')
@@ -142,6 +197,9 @@ class AuthViewsTestCase(TestCase):
         self.assertEqual(response.status_code, 302)  # Debería redirigir a la página de inicio
 
     def test_ccsa_login_post_request_invalid_credentials(self):
+        """
+        Test POST request with invalid credentials for ccsaLogin.
+        """
         # Prueba la solicitud POST con credenciales inválidas para ccsaLogin
         request = self.factory.post('/ccsa/login/', {'username': 'testuser', 'password': 'wrongpassword'})
         response = ccsaLogin(request)
@@ -149,6 +207,9 @@ class AuthViewsTestCase(TestCase):
         self.assertContains(response, 'Incorrect username or password!')
 
     def test_ccsa_login_post_request_invalid_group(self):
+        """
+        Test POST request with valid credentials but user in an incorrect group for ccsaLogin.
+        """
         # Prueba la solicitud POST con credenciales válidas pero usuario en un grupo incorrecto para ccsaLogin
         request = self.factory.post('/ccsa/login/', {'username': 'testuser', 'password': 'password'})
         user = authenticate(username='testuser', password='password')
@@ -159,6 +220,9 @@ class AuthViewsTestCase(TestCase):
 
 
     def test_signout(self):
+        """
+        Test the signout view.
+        """
         # Crea una solicitud GET para la vista de cierre de sesión
         request = self.factory.get('/signout/')
 

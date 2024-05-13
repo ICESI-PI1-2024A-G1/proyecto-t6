@@ -10,7 +10,13 @@ from django.contrib.messages import get_messages
 
 
 class CreateEventRequestTestCase(TestCase):
+    """
+Test cases for creating an event request.
+"""
     def setUp(self):
+        """
+        Setup method to create a test user and authenticate them, also creates a test group.
+        """
         # Creamos un usuario de prueba y lo autenticamos
         self.user = User.objects.create_user(username='testuser', password='password')
         self.client.login(username='testuser', password='password')
@@ -20,16 +26,25 @@ class CreateEventRequestTestCase(TestCase):
         self.user.groups.add(self.group)
 
     def test_access(self):
+        """
+        Test access to the view for an authenticated user.
+        """
         # Verificar el acceso a la vista para un usuario autenticado
         response = self.client.get(reverse('create-event-request'))
         self.assertEqual(response.status_code, 200)
 
     def test_form_display(self):
+        """
+       Test whether the form is displayed correctly.
+       """
         # Verificar que el formulario se muestre correctamente
         response = self.client.get(reverse('create-event-request'))
         self.assertContains(response, '<form', count=1)
 
     def test_form_submission(self):
+        """
+       Test submission of the form.
+       """
         # Verificar que el formulario se envíe correctamente
         data = {
             'titulo': 'Test Event',
@@ -50,13 +65,22 @@ class CreateEventRequestTestCase(TestCase):
         self.assertEqual(event_requests.first().titulo, 'Test Event')
 
     def test_hidden_professor_field(self):
+        """
+       Test whether the professor field is hidden for certain groups.
+       """
         # Verificar que el campo de profesor esté oculto para ciertos grupos
         response = self.client.get(reverse('create-event-request'))
         self.assertNotContains(response, 'id_profesor')
 
 class EventRequestRecordTestCase(TestCase):
-
+    """
+    Test cases for viewing event request records.
+    """
     def setUp(self):
+        """
+        Setup method to create a test user and authenticate them, also creates a test group.
+        """
+
         # Creamos un usuario de prueba y lo autenticamos
         self.user = User.objects.create_user(username='testuser', password='password')
         self.client.login(username='testuser', password='password')
@@ -66,11 +90,17 @@ class EventRequestRecordTestCase(TestCase):
 
 
     def test_access(self):
+        """
+       Test access to the view for an authenticated user.
+       """
         # Verificar el acceso a la vista para un usuario autenticado
         response = self.client.get(reverse('event-request-record'))
         self.assertEqual(response.status_code, 200)
 
     def test_filtering_for_different_groups(self):
+        """
+       Test filtering of event requests for different groups.
+       """
         # Verificar que los diferentes grupos obtienen resultados filtrados apropiadamente
         # Creamos algunas solicitudes de evento para diferentes estados
         EventRequest.objects.create(
@@ -105,13 +135,22 @@ class EventRequestRecordTestCase(TestCase):
         self.assertNotContains(response, 'Test Event 1')
 
     def test_filter_by_title(self):
+        """
+        Test searching event requests by title.
+        """
         # Verificar que la búsqueda por título funcione correctamente
         response = self.client.get(reverse('event-request-record'), {'search': 'Evento 1', 'filter_by': 'titulo'})
-        
+
         self.assertNotContains(response, 'Evento 2')
 
 class EventRequestListTestCase(TestCase):
+    """
+    Test cases for listing event requests.
+    """
     def setUp(self):
+        """
+       Setup method to create a test user and some test event requests.
+       """
         # Creamos un usuario de prueba
         self.user = User.objects.create_user(username='testuser', password='password')
 
@@ -149,6 +188,9 @@ class EventRequestListTestCase(TestCase):
         self.factory = RequestFactory()
 
     def test_event_request_list_view(self):
+        """
+        Test the event request list view.
+        """
         # Creamos una solicitud GET para la vista
         request = self.factory.get(reverse('event-request-list'))
 
@@ -162,6 +204,9 @@ class EventRequestListTestCase(TestCase):
         self.assertContains(response, 'Evento 2')
 
     def test_event_request_list_filtering(self):
+        """
+        Test filtering event requests by title.
+        """
         # Creamos una solicitud GET para la vista con parámetros de búsqueda
         request = self.factory.get(reverse('event-request-list'), {'filter_by': 'titulo', 'search': 'Evento 1'})
 
@@ -176,6 +221,9 @@ class EventRequestListTestCase(TestCase):
 
 
     def test_reject_event_request(self):
+        """
+        Test rejecting an event request.
+        """
         # Creamos una solicitud POST para rechazar la solicitud de evento
         request = self.factory.post(reverse('event-request-list'), {'evento_id': self.event_request_2.id, 'estado_solicitud': 'Rechazada'})
 
@@ -190,7 +238,13 @@ class EventRequestListTestCase(TestCase):
 
 
 class CreateEventRequestTestCase(TestCase):
+    """
+Test cases for creating event requests.
+"""
     def setUp(self):
+        """
+        Setup method to create a test user, authenticate them, and create a test group.
+        """
         # Creamos un usuario de prueba y lo autenticamos
         self.user = User.objects.create_user(username='testuser', password='password')
         self.client.login(username='testuser', password='password')
@@ -202,16 +256,25 @@ class CreateEventRequestTestCase(TestCase):
         self.factory = RequestFactory()
 
     def test_access(self):
+        """
+        Test access to the view for an authenticated user.
+        """
         # Verificar el acceso a la vista para un usuario autenticado
         response = self.client.get(reverse('create-event-request'))
         self.assertEqual(response.status_code, 200)
 
     def test_form_display(self):
+        """
+        Test correct form display.
+        """
         # Verificar que el formulario se muestre correctamente
         response = self.client.get(reverse('create-event-request'))
         self.assertContains(response, '<form', count=1)
 
     def test_form_submission(self):
+        """
+        Test form submission.
+        """
         # Verificar que el formulario se envíe correctamente
         data = {
             'titulo': 'Test Event',
@@ -243,7 +306,13 @@ class CreateEventRequestTestCase(TestCase):
 
 
 class EventListTestCase(TestCase):
+    """
+    Test cases for listing events.
+    """
     def setUp(self):
+        """
+        Setup method to create test events.
+        """
         # Creamos un usuario de prueba y lo autenticamos
         self.user = User.objects.create_user(username='testuser', password='password')
         self.client.login(username='testuser', password='password')
@@ -291,17 +360,26 @@ class EventListTestCase(TestCase):
             transporte= 'Test Transport',
         )
     def test_access_authenticated_user(self):
+        """
+        Test access to the view for an authenticated user.
+        """
         # Verificar el acceso a la vista para un usuario autenticado
         response = self.client.get(reverse('event-list'))
         self.assertEqual(response.status_code, 200)
 
     def test_access_unauthenticated_user(self):
+        """
+        Test redirection for an unauthenticated user.
+        """
         # Verificar que un usuario no autenticado sea redirigido al inicio de sesión
         self.client.logout()
         response = self.client.get(reverse('event-list'))
         self.assertEqual(response.status_code, 302)  # Redirección al inicio de sesión
 
     def test_event_display(self):
+        """
+        Test displaying events.
+        """
         # Verificar que los eventos se muestren correctamente en la lista
         response = self.client.get(reverse('event-list'))
         self.assertContains(response, 'Evento 1')
@@ -311,6 +389,9 @@ class EventListTestCase(TestCase):
 
 
     def test_search_by_nonexistent_title(self):
+        """
+        Test searching for events with a nonexistent title.
+        """
         # Verificar que no se muestren eventos si el título de búsqueda no coincide
         response = self.client.get(reverse('event-list') + '?search=Nonexistent')
         self.assertNotContains(response, 'Evento 1')
@@ -318,6 +399,9 @@ class EventListTestCase(TestCase):
         self.assertNotContains(response, 'Evento 3')
 
     def test_filter_by_status(self):
+        """
+       Test filtering events by status.
+       """
         # Verificar que se puedan filtrar los eventos por estado
         response = self.client.get(reverse('event-list') + '?filter_by=id')
         self.assertContains(response, 'Evento 1')
@@ -327,7 +411,13 @@ class EventListTestCase(TestCase):
 
 
 class SaveTasksTestCase(TestCase):
+    """
+    Test cases for saving event tasks.
+    """
     def setUp(self):
+        """
+        Setup method to create a test user and authenticate them, also creates a test event.
+        """
         # Crear un usuario de prueba
         self.user = User.objects.create_user(username='testuser',email='sacalla3@gmail.com', password='password')
         self.user.email = "sacalla3@gmail.com"  # Establecer el correo electrónico
@@ -343,6 +433,9 @@ class SaveTasksTestCase(TestCase):
                                           transporte= 'Test Transport',)
 
     def test_save_tasks(self):
+        """
+        Test saving event tasks.
+        """
         # Datos a enviar en la solicitud POST
         data = {
             'lugar': 'Nuevo lugar',
@@ -370,7 +463,14 @@ class SaveTasksTestCase(TestCase):
 
 
 class EventRegistryTestCase(TestCase):
+    """
+    Test case for the event registry functionality.
+    """
     def setUp(self):
+
+        """
+        Set up test data including a test user and some sample events.
+        """
         # Creamos un usuario de prueba y lo autenticamos
         self.user = User.objects.create_user(username='testuser', password='password')
         self.client.login(username='testuser', password='password')
@@ -418,17 +518,27 @@ class EventRegistryTestCase(TestCase):
         self.factory = RequestFactory()
 
     def test_access(self):
+        """
+        Test access to the event registry view.
+        """
+
         # Verificar el acceso a la vista
         response = self.client.get(reverse('event-registry'))
         self.assertEqual(response.status_code, 200)
 
     def test_list_finished_events(self):
+        """
+        Test listing only finished events in the event registry.
+        """
         # Verificar que solo se muestren los eventos finalizados
         response = self.client.get(reverse('event-registry'))
         eventos = response.context['eventos']
         self.assertEqual(eventos.count(), 3)  # Deberían haber 3 eventos finalizados
 
     def test_search_by_id(self):
+        """
+        Test searching events by ID in the event registry.
+        """
         # Verificar la búsqueda por ID
         url = reverse('event-registry') + '?search=1&filter_by=id'
         response = self.client.get(url)
@@ -436,6 +546,9 @@ class EventRegistryTestCase(TestCase):
         self.assertEqual(eventos.count(), 1)  # Debería haber solo 1 evento con ID 1
 
     def test_search_by_title(self):
+        """
+        Test searching events by title in the event registry.
+        """
         # Verificar la búsqueda por título
         url = reverse('event-registry') + '?search=Evento&filter_by=titulo'
         response = self.client.get(url)
@@ -443,12 +556,22 @@ class EventRegistryTestCase(TestCase):
         self.assertEqual(eventos.count(), 3)  # Deberían haber 3 eventos que contengan "Evento" en el título
 
 class ResetCeremonyTestCase(TestCase):
+    """
+        Test case for resetting ceremony functionality.
+        """
     def setUp(self):
+
+        """
+        Set up test data including a test user.
+        """
         # Creamos un usuario de prueba y lo autenticamos
         self.user = User.objects.create_user(username='testuser', password='password')
         self.client.login(username='testuser', password='password')
 
     def test_reset_ceremony_post(self):
+        """
+        Test resetting ceremony via POST request.
+        """
         # Creamos algunas actividades de ceremonia
         CeremonyActivity.objects.create(title='Actividad 1')
         CeremonyActivity.objects.create(title='Actividad 2')
@@ -466,6 +589,9 @@ class ResetCeremonyTestCase(TestCase):
 
 
     def test_reset_ceremony_get(self):
+        """
+        Test resetting ceremony via GET request.
+        """
         # Enviamos una solicitud GET (no debería tener ningún efecto)
         response = self.client.get(reverse('reset_ceremony'))
 
@@ -480,10 +606,16 @@ class ResetCeremonyTestCase(TestCase):
         self.assertRedirects(response, reverse('ceremony-plan'))
 
     def test_access_for_unauthenticated_users(self):
+        """
+        Test access to the ceremony planning page for unauthenticated users.
+        """
         response = self.client.get(reverse('ceremony-plan'))
         self.assertEqual(response.status_code, 200)  # Redirige a la página de inicio de sesión
 
     def test_access_for_authenticated_users(self):
+        """
+        Test access to the ceremony planning page for authenticated users.
+        """
         self.client.login(username='testuser', password='password')
         response = self.client.get(reverse('ceremony-plan'))
         self.assertEqual(response.status_code, 200)  # Acceso permitido para usuarios autenticados
@@ -491,7 +623,14 @@ class ResetCeremonyTestCase(TestCase):
 
 
 class GuardarEventoTestCase(TestCase):
+    """
+    Test case for saving events.
+    """
     def setUp(self):
+
+        """
+        Set up test data including a test user and a sample event.
+        """
         self.user = User.objects.create_user(username='testuser', password='password')
         self.client.login(username='testuser', password='password')
         self.event = Event.objects.create(titulo='Evento de prueba', estado_solicitud='En curso', fecha_inicio=datetime(2024, 5, 26),
@@ -501,6 +640,9 @@ class GuardarEventoTestCase(TestCase):
                                           transporte='Test Transport')
 
     def test_guardar_evento(self):
+        """
+        Test saving an event.
+        """
         data = {
             'event_id': self.event.id,
             'estado_alimentacion': 'on',
@@ -517,7 +659,13 @@ class GuardarEventoTestCase(TestCase):
 
 
 class EventListApoyoTestCase(TestCase):
+    """
+    Test case for the event list support functionality.
+    """
     def setUp(self):
+        """
+        Set up test data including a test user and some sample events.
+        """
         # Crear eventos de prueba
         self.user = User.objects.create_user(username='testuser', password='password')
         self.client.login(username='testuser', password='password')
@@ -539,6 +687,9 @@ class EventListApoyoTestCase(TestCase):
                              transporte='Test Transport')
 
     def test_event_list_apoyo(self):
+        """
+           Test displaying the event list support view.
+           """
         response = self.client.get(reverse('event-list-apoyo'))
         self.assertEqual(response.status_code, 200)
         eventos = response.context['eventos']
@@ -546,7 +697,14 @@ class EventListApoyoTestCase(TestCase):
         self.assertEqual(len(eventos), 2)
 
 class FinishEventApoyoTestCase(TestCase):
+    """
+   Test cases for finishing events for support staff.
+   """
+
     def setUp(self):
+        """
+        Setup method to create test events.
+        """
         # Crear eventos de prueba
         self.user = User.objects.create_user(username='testuser', password='password')
         self.client.login(username='testuser', password='password')
@@ -568,6 +726,9 @@ class FinishEventApoyoTestCase(TestCase):
                              transporte='Test Transport')
 
     def test_finish_event_apoyo(self):
+        """
+        Test finishing events for support staff.
+        """
         response = self.client.get(reverse('finish-event-apoyo'))
         self.assertEqual(response.status_code, 200)
         eventos = response.context['eventos']

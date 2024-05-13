@@ -9,7 +9,14 @@ from django.urls import reverse
 
 
 class CortexViewTestCase(TestCase):
+    """
+    Test case for Cortex views.
+    """
     def setUp(self):
+        """
+        Set up test data including a test user, groups, and an event.
+        """
+
         grupos = Group.objects.all()
 
         # Crea un usuario de prueba
@@ -35,6 +42,9 @@ class CortexViewTestCase(TestCase):
 
 
     def test_home_view(self):
+        """
+        Test the home view.
+        """
         # Crea un cliente de prueba
         client = Client()
 
@@ -48,6 +58,10 @@ class CortexViewTestCase(TestCase):
         self.assertTemplateUsed(response, 'home.html')
 
     def test_index_view_group_1(self):
+        """
+        Test the index view for users in group 1.
+        """
+
         # Inicia sesión como el usuario en el grupo 1
         self.client.login(username='testuser', password='password')
 
@@ -61,6 +75,9 @@ class CortexViewTestCase(TestCase):
         self.assertTemplateUsed(response, 'index1.html')
 
     def test_index_view_no_group(self):
+        """
+        Test the index view for users with no group.
+        """
         # Obtiene la respuesta de la vista utilizando el cliente de prueba
         response = self.client.get(reverse('index'))  # Asegúrate de que 'index' sea el nombre correcto de la URL de la vista index
 
@@ -72,6 +89,9 @@ class CortexViewTestCase(TestCase):
 
 
     def test_index_view_group_2(self):
+        """
+        Test the index view for users in group 2.
+        """
         # Prueba la vista index para un usuario en el grupo 2
         user = User.objects.create_user(username='testuser2', password='password')
 
