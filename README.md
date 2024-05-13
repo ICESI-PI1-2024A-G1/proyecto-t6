@@ -30,4 +30,10 @@ https://dev.to/achamorro_dev/conventional-commits-que-es-y-por-que-deberias-empe
 >
 > 
 > Para las de selenium: python *".\manage.py test test/functional"*
-
+>
+>Por otro lado para observar el coverage de de las pruebas, ejecuta: python -m coverage run manage.py test .\test\unit\
+>
+>Para generar reporte (despues de ejecutar las pruebas con coverage): python .\manage.py coverage report
+>
+>Para generar reporte exluyendo archivos propios de django: python -m coverage report --omit=mysite/settings.py,myapp/migrations/*,test/*,manage.py,myapp/__init__.py,myapp/admin.py,myapp/urls.py,mysite/urls.py,mysite/__init__.py,myapp/apps.py
+>
