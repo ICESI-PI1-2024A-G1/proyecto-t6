@@ -8,16 +8,24 @@
     <link rel="stylesheet" href="{% static 'lib/bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'css/barra_de_proceso.css' %}">
+    <link rel="stylesheet" href="{% static 'css/events.css' %}">
     <script src="{% static 'js/scriptBarraProgreso.js' %}"></script>
 
     <title>Lista de eventos</title>
+    <style>
+        body {
+            background-image: url("{%static 'img/events_bg.png'%}");
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
 </head>
 
 <body>
     {% include 'layouts/sidebar2.html' %}
     {% block content %}
-    <div class="main container mt-5"
-        style="margin-left: 70px; background-color: #93b8f0; border-radius: 10px; padding: 20px;">
+    <div class="main-container-mt-5"
+        style="margin-left: 8%; background-color: #73a1c9; border-radius: 10px; padding: 20px; margin-right: 2%;">
         <h1 class="text-center">Lista de Eventos</h1>
         <form method="GET">
             <div class="input-group">
@@ -32,8 +40,8 @@
               </div>
             </div>
         </form>
-        <div class="table-responsive">
-            <table class="table table-bordered">
+        <div class="table">
+            <table class="table-responsive">
                 <thead>
                     <tr>
                         <th>ID</th>

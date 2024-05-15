@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="{% static 'lib/bootstrap-5.3.3-dist/css/bootstrap.css' %}">
     <style>
         body {
-            background: #8d66a1;
-            background: linear-gradient(to right, #d5d8de, #bf5c91);
-            font-family: 'Roboto', sans-serif;
+            background-image: url("{%static 'img/manage_bg.png'%}");
+            background-size: cover;
+            background-position: center;
         }
 
         h1 {
@@ -126,7 +126,7 @@
         {% endif %}
     </div>
 
-    <div class="container mt-5" style="background-color: #f5f5f5; border-radius: 10px; padding: 20px;">
+    <div class="container mt-5" style="background-color: #d8e1ee; border-radius: 10px; padding: 20px; margin-left: 10%;">
         <h1 class="text-center">Lista de Solicitudes</h1>
         <form method="GET">
             <div class="input-group">

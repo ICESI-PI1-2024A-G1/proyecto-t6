@@ -1,0 +1,43 @@
+
+.ceremonias-container {
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 800px; 
+}
+
+.ceremonias-title {
+    text-align: center;
+}
+
+.ceremony-title {
+    text-align: left;
+}
+
+.ceremony-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.ceremony-details {
+    flex: 1;
+}
+
+.ceremony-details label {
+    margin-right: 10px;
+}
+
+.ceremony-actions {
+    flex-shrink: 0;
+}
+
+.ceremony-form {
+    margin-top: 20px;
+}
+
+.modal-body .ceremony-form {
+    margin-bottom: 0;
+}

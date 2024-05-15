@@ -11,10 +11,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.css">
 
     <style>
+        body {
+            background-image: url("{%static 'img/request_bg.png'%}");
+            background-size: cover;
+            background-position: center;
+        }
+
         /* Estilos personalizados para el contenedor del formulario */
         .form-container {
-            background-color: #e5e5e5;
-            /* Fondo gris claro */
+            width: 120%;
+            margin-left: 15%;
+            margin-right: 10%;
+            background-color: #d8e1ee;
             border-radius: 10px;
             /* Bordes redondeados */
             padding: 40px;
@@ -29,10 +37,10 @@
         .form-container input {
             display: block;
             width: 100%;
+            color: #000000;
         }
     </style>
 </head>
-
 
 <body>
     {% include 'layouts/sidebar3.html' %}
