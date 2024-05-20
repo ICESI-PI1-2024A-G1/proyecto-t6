@@ -1,0 +1,27 @@
+/* perfil_1.css */
+
+.welcome-message {
+    font-size: 2em;
+    margin-left: 50px;
+}
+
+.profile-info {
+    text-align: left;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.profile-info img {
+    width: 66%;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    border: 5px solid #333;
+}
+
+.profile-info p {
+    margin-bottom: 15px;
+    font-family: 'Roboto', sans-serif; 
+    font-size: 35px;
+    color: #333; 
+    font-weight: bold; 
+}
