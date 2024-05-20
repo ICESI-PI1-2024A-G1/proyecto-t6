@@ -1,0 +1,17 @@
+.main {
+    position:absolute;
+    margin-left: 70px;
+    padding-left: 2%;
+}
+
+.mitad-pantalla-i {
+    width: 40vw; /* 50% del ancho de la ventana */
+    height: 100vh; /* 100% del alto de la ventana */
+    background-color: #f0f0f0; /* Color de fondo gris claro */
+    float:right;
+}
+.mitad-pantalla-d {
+    width: 50vw; /* 50% del ancho de la ventana */
+    height: 100vh; /* 100% del alto de la ventana */
+    float:right;
+}

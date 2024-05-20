@@ -1,0 +1,27 @@
+
+.table-responsive {
+    max-width: auto; /* Ajusta el ancho máximo de la tabla al 100% */
+    overflow-x: auto; /* Agrega desplazamiento horizontal si el contenido es demasiado ancho */
+}
+
+.table {
+    max-width: auto;
+    width: auto;
+    border-collapse: collapse; /* Fusiona los bordes de las celdas */
+}
+
+.table th,
+.table td {
+    border: 1px solid #ddd; /* Agrega un borde de 1px sólido */
+    padding: 4px; /* Agrega espacio alrededor del contenido de las celdas */
+}
+
+.table th {
+    background-color: #f2f2f2; /* Agrega un color de fondo a las celdas de encabezado */
+}
+
+.main-container-mt-5{
+    max-width: auto;
+    border-collapse: collapse; /* Fusiona los bordes de las celdas */
+    overflow-x: auto; /* Agrega desplazamiento horizontal si el contenido es demasiado ancho */
+}

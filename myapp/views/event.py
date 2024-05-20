@@ -52,11 +52,14 @@ def eventList(request):
     filter_by = request.GET.get('filter_by', 'id')
     if search_term:
         if filter_by == 'id':
-            eventos = Event.objects.filter(id__icontains=search_term, estado_solicitud='En curso')
+            eventos = Event.objects.filter(
+                id__icontains=search_term, estado_solicitud='En curso')
         elif filter_by == 'titulo':
-            eventos = Event.objects.filter(titulo__icontains=search_term, estado_solicitud='En curso')
+            eventos = Event.objects.filter(
+                titulo__icontains=search_term, estado_solicitud='En curso')
         elif filter_by == 'presupuesto':
-            eventos = Event.objects.filter(presupuesto__icontains=search_term, estado_solicitud='En curso')
+            eventos = Event.objects.filter(
+                presupuesto__icontains=search_term, estado_solicitud='En curso')
     else:
         eventos = Event.objects.filter(estado_solicitud='En curso')
 
@@ -142,11 +145,14 @@ def eventRegistry(request):
     filter_by = request.GET.get('filter_by', 'id')
     if search_term:
         if filter_by == 'id':
-            events = Event.objects.filter(id__icontains=search_term, estado_solicitud='Finalizado')
+            events = Event.objects.filter(
+                id__icontains=search_term, estado_solicitud='Finalizado')
         elif filter_by == 'titulo':
-            events = Event.objects.filter(titulo__icontains=search_term, estado_solicitud='Finalizado')
+            events = Event.objects.filter(
+                titulo__icontains=search_term, estado_solicitud='Finalizado')
         elif filter_by == 'presupuesto':
-            events = Event.objects.filter(presupuesto__icontains=search_term, estado_solicitud='Finalizado')
+            events = Event.objects.filter(
+                presupuesto__icontains=search_term, estado_solicitud='Finalizado')
     else:
         events = Event.objects.filter(estado_solicitud='Finalizado')
 
@@ -255,6 +261,24 @@ def finish_activity(request, activity_id):
 
 
 @login_required
+def delete_activity(request, activity_id):
+    """
+    Deletes a ceremony activity.
+
+    Args:
+    - request: HttpRequest object.
+    - activity_id: ID of the activity.
+
+    Returns:
+    - Redirects to the ceremony planning page.
+    """
+    activity = get_object_or_404(CeremonyActivity, id=activity_id)
+    activity.delete()
+    messages.success(request, 'Actividad eliminada exitosamente.')
+    return redirect('ceremony-plan')
+
+
+@login_required
 def guardar_evento(request):
     """
     Saves the status of an event (e.g., food, transport, extras).
@@ -271,14 +295,12 @@ def guardar_evento(request):
         estado_transporte = request.POST.get('estado_transporte') == 'on'
         estado_extras = request.POST.get('estado_extras') == 'on'
 
-
         event = Event.objects.get(pk=event_id)
         event.estado_alimentacion = estado_alimentacion
         event.estado_transporte = estado_transporte
         event.estado_extras = estado_extras
         event.save()
         print(estado_extras)
-
 
     # Redirect to the desired page after saving
     if (request.user.groups.values_list("id", flat=True).first() == 2):

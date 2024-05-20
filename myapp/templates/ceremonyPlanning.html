@@ -11,7 +11,7 @@
     <title>Planificación de Ceremonias</title>
     <style>
         body {
-            background-image: url("{%static 'img/ceremonias_bg.png'%}");
+            background-image: url("{% static 'img/ceremonias_bg.png' %}");
             background-size: cover;
             background-position: center;
         }
@@ -22,7 +22,7 @@
     {% include 'layouts/sidebar1.html' %}
     {% block content %}
     <div class="main container mt-5">
-        <div class="ceremonias-container">
+        <div class="ceremonias-container" style="opacity: 95%;">
             <h1 class="ceremonias-title">Planificación de Ceremonias</h1>
             <div class="ceremony-info">
                 <div class="ceremony-details">
@@ -31,8 +31,7 @@
                     <p><strong>Fecha de Fin:</strong> {{ ceremony.end_date }}</p>
                 </div>
                 <div class="ceremony-actions">
-                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                        data-bs-target="#cambiarFechasModal">Cambiar Fechas</button>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#cambiarFechasModal">Cambiar Fechas</button>
                 </div>
             </div>
             <hr>
@@ -41,14 +40,20 @@
                 {% for activity in ceremony_activities %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     {{ activity.title }}
-                    {% if activity.completed %}
-                    <span class="badge bg-success">Finalizada</span>
-                    {% else %}
-                    <form method="post" action="{% url 'finish_activity' activity.id %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-success btn-sm">Finalizar</button>
-                    </form>
-                    {% endif %}
+                    <div>
+                        {% if activity.completed %}
+                        <span class="badge bg-success">Finalizada</span>
+                        {% else %}
+                        <form method="post" action="{% url 'finish_activity' activity.id %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success btn-sm">Finalizar</button>
+                        </form>
+                        {% endif %}
+                        <form method="post" action="{% url 'delete_activity' activity.id %}" style="display:inline; margin-left: 5px;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
+                    </div>
                 </li>
                 {% endfor %}
             </ul>
@@ -70,8 +75,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="cambiarFechasModal" tabindex="-1" aria-labelledby="cambiarFechasModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="cambiarFechasModal" tabindex="-1" aria-labelledby="cambiarFechasModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -83,13 +87,11 @@
                         {% csrf_token %}
                         <div class="mb-3">
                             <label for="fecha_inicio" class="form-label">Fecha de Inicio:</label>
-                            <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio"
-                                value="{{ ceremony.start_date }}">
+                            <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" value="{{ ceremony.start_date }}">
                         </div>
                         <div class="mb-3">
                             <label for="fecha_fin" class="form-label">Fecha de Fin:</label>
-                            <input type="date" class="form-control" id="fecha_fin" name="fecha_fin"
-                                value="{{ ceremony.end_date }}">
+                            <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" value="{{ ceremony.end_date }}">
                         </div>
                         <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                     </form>
