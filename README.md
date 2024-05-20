@@ -19,6 +19,10 @@
 
 https://dev.to/achamorro_dev/conventional-commits-que-es-y-por-que-deberias-empezar-a-utilizarlo-23an
 
+#### Link del render (despliegue):
+
+https://proyecto-t6.onrender.com/
+
 > [!IMPORTANT]
 > Antes de hacer la ejecución del programa, por favor revisar el *"requerimientos.txt"* para instalar las librerías necesarias con su respectivo comando y nombre mediante *"pip install <libreria_necesaria>"*
 >
