@@ -30,4 +30,6 @@ urlpatterns = [
          event.reset_ceremony, name='reset_ceremony'),
     path('finish-activity/<int:activity_id>/',
          event.finish_activity, name='finish_activity'),
+    path('delete-activity/<int:activity_id>/',
+         event.delete_activity, name='delete_activity'),
 ]

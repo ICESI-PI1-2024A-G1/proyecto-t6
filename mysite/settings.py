@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import environ
 import os
 from pathlib import Path
 
@@ -17,8 +18,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-
-#Email Settings:
+# Email Settings:
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
@@ -33,11 +33,10 @@ EMAIL_USE_TLS = True
 SECRET_KEY = 'django-insecure-%8is+7e63hl2^u)sxz&o#vn++!$hduclczn=gp&qk30m&w$r(('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'proyecto-t6.onrender.com']
 
-import environ
 
 env = environ.Env()
 environ.Env.read_env()
@@ -64,7 +63,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -102,7 +100,7 @@ def get_db_config():
         }
     else:
         return {
-            'ENGINE':'django.db.backends.postgresql',
+            'ENGINE': 'django.db.backends.postgresql',
             'NAME': env('DATABASE_NAME'),
             'USER': env('DATABASE_USER'),
             'PASSWORD': env('DATABASE_PASS'),
@@ -151,6 +149,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
 
 # This production code might break development mode, so we check whether we're in DEBUG mode
 if not DEBUG:
